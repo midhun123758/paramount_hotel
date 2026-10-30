@@ -549,7 +549,67 @@ export default function App() {
         </div>
       </section>
 
-      {/* 2. OUR SPECIALS SECTION */}
+      {/* 2. ABOUT SECTION */}
+      <section id="about" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-b border-emerald-950">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: About Text & Heritage Story */}
+          <div>
+            <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+              The Legend of Calicut Culinary Heritage
+            </span>
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37] leading-tight">
+              About Hotel Paramount
+            </h2>
+            <div className="w-16 h-0.5 bg-[#d4af37] mt-4 mb-6" />
+
+            <p className="text-[#faebd2] text-sm sm:text-base font-medium leading-relaxed mb-6">
+              Founded in the historic port city of Kozhikode, Hotel Paramount represents decades of passion for genuine Malabar flavors. We preserve timeless cooking traditions passed down through generations of culinary masters.
+            </p>
+
+            <p className="text-[#faebd2]/90 text-xs sm:text-sm font-medium leading-relaxed mb-8">
+              From our signature Calicut Dum Biryani cooked with fragrant Jeerakasala kaima rice and secret whole spices, to tender black-pepper beef roast paired with hot flaky porottas, every recipe celebrates authentic Malabar hospitality.
+            </p>
+
+            {/* 3 Pillars / Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-emerald-900/40">
+              <div className="bg-[#041c10] border border-emerald-900/60 p-4 text-center">
+                <span className="text-[#d4af37] font-['Cormorant_Garamond'] text-3xl font-bold block">100%</span>
+                <span className="text-[#ecdcb2] text-[11px] uppercase tracking-wider font-semibold">Authentic Recipes</span>
+              </div>
+              <div className="bg-[#041c10] border border-emerald-900/60 p-4 text-center">
+                <span className="text-[#d4af37] font-['Cormorant_Garamond'] text-3xl font-bold block">Fresh</span>
+                <span className="text-[#ecdcb2] text-[11px] uppercase tracking-wider font-semibold">Local Ingredients</span>
+              </div>
+              <div className="bg-[#041c10] border border-emerald-900/60 p-4 text-center">
+                <span className="text-[#d4af37] font-['Cormorant_Garamond'] text-3xl font-bold block">Master</span>
+                <span className="text-[#ecdcb2] text-[11px] uppercase tracking-wider font-semibold">Malabar Chefs</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Clean Showcase Photo with Subtle Luxury Frame */}
+          <div className="relative pb-6 sm:pb-0">
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#021009] border border-emerald-900/70 shadow-2xl">
+              <img
+                src="/images/restaurant-interior.jpg"
+                alt="Hotel Paramount Dining Experience"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Ambient Badge */}
+            <div className="absolute -bottom-4 left-4 sm:left-6 bg-[#041c10] border border-[#d4af37]/50 p-4 shadow-xl max-w-xs">
+              <span className="text-[#d4af37] text-xs font-mono font-bold tracking-widest uppercase block mb-0.5">
+                Calicut &bull; Kozhikode
+              </span>
+              <p className="text-[#faebd2] text-xs font-medium">
+                Serving iconic Kozhikode hospitality daily from 11:00 AM to 11:30 PM.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. OUR SPECIALS SECTION */}
       <section id="specials" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
