@@ -1,55 +1,1372 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
-import HeroSlider from './components/HeroSlider'
-import AboutSection from './components/AboutSection'
-import MenuSection from './components/MenuSection'
-import WineWindow from './components/WineWindow'
-import GallerySection from './components/GallerySection'
-import Footer from './components/Footer'
-import ReservationModal from './components/ReservationModal'
+
+const API_BASE = 'http://127.0.0.1:8000/api'
+
+// Fallback specials if backend is not actively running
+const DEFAULT_SPECIALS = [
+  {
+    id: 1,
+    name: 'Calicut Special Beef Biryani',
+    food_type: 'Biryani',
+    regular_price: 220,
+    special_price: 189,
+    savings: 31,
+    description: "Chef's Special: Authentic Calicut Dum Beef Biryani with fragrant Jeerakasala kaima rice, served with complimentary mint raita & date pickle!",
+    image_url: '/images/beef_biryani.jpg',
+  },
+  {
+    id: 2,
+    name: 'Paramount Special Beef Roast',
+    food_type: 'Curry',
+    regular_price: 230,
+    special_price: 199,
+    savings: 31,
+    description: 'Special Combo: Signature slow-roasted beef with fresh coconut slices & spices, served with 2 hot flaky Malabar porottas!',
+    image_url: '/images/beef_roast.jpg',
+  },
+  {
+    id: 3,
+    name: 'Chicken Al Faham (Full)',
+    food_type: 'Grill',
+    regular_price: 460,
+    special_price: 399,
+    savings: 61,
+    description: 'Charcoal Grilled Special: Whole succulent Al Faham chicken served with 3 warm kuboos, authentic garlic toum & salad.',
+    image_url: '/images/chicken_al_faham.jpg',
+  },
+]
+
+// Fallback foods
+const DEFAULT_FOODS = [
+  {
+    id: 1,
+    name: 'Calicut Special Beef Biryani',
+    food_type: 'Biryani',
+    price: 220,
+    description: 'Fragrant Jeerakasala kaima rice layered with tender beef pieces, caramelized onions, and secret Calicut spices.',
+    image_url: '/images/beef_biryani.jpg',
+    is_available: true,
+  },
+  {
+    id: 2,
+    name: 'Malabar Chicken Dum Biryani',
+    food_type: 'Biryani',
+    price: 210,
+    description: 'Classic Calicut style chicken biryani cooked on slow dum, served with pickle, raita and chammanthi.',
+    image_url: '/images/beef_biryani.jpg',
+    is_available: true,
+  },
+  {
+    id: 3,
+    name: 'Mutton Dum Biryani',
+    food_type: 'Biryani',
+    price: 330,
+    description: 'Rich and flavorful biryani prepared with succulent mutton cuts and authentic Malabar whole spices.',
+    image_url: '/images/beef_biryani.jpg',
+    is_available: true,
+  },
+  {
+    id: 6,
+    name: 'Paramount Special Beef Roast',
+    food_type: 'Curry',
+    price: 230,
+    description: 'Slow-roasted beef cubes tossed with black pepper, fried coconut slices, curry leaves, and rich gravy.',
+    image_url: '/images/beef_roast.jpg',
+    is_available: true,
+  },
+  {
+    id: 9,
+    name: 'Kerala Beef Fry (BFF)',
+    food_type: 'Starter',
+    price: 240,
+    description: 'Crispy fried beef chunks with crunchy coconut pieces, garlic, green chillies, and curry leaves.',
+    image_url: '/images/beef_roast.jpg',
+    is_available: true,
+  },
+  {
+    id: 11,
+    name: 'Malabar Porotta',
+    food_type: 'Breads',
+    price: 20,
+    description: 'Layered, flaky and crispy handmade Kerala porotta made fresh on the griddle.',
+    image_url: '/images/beef_roast.jpg',
+    is_available: true,
+  },
+  {
+    id: 14,
+    name: 'Chicken Al Faham (Full)',
+    food_type: 'Grill',
+    price: 460,
+    description: 'Succulent whole chicken marinated in Arabian spices and charcoal grilled to perfection.',
+    image_url: '/images/chicken_al_faham.jpg',
+    is_available: true,
+  },
+  {
+    id: 16,
+    name: 'Kuzhimandhi Chicken (Quarter)',
+    food_type: 'Mandhi',
+    price: 220,
+    description: 'Smoky aromatic basmati rice infused with whole spices and tender pit-cooked chicken.',
+    image_url: '/images/chicken_al_faham.jpg',
+    is_available: true,
+  },
+  {
+    id: 18,
+    name: 'Karimeen Pollichathu',
+    food_type: 'Seafood',
+    price: 380,
+    description: 'Pearl spot fish wrapped in fresh banana leaves with spicy shallot masala and pan-fried.',
+    image_url: '/images/restaurant-dining.jpg',
+    is_available: true,
+  },
+  {
+    id: 20,
+    name: 'Paramount Special Falooda',
+    food_type: 'Dessert',
+    price: 150,
+    description: 'Layered falooda with vermicelli, basil seeds, fruits, dry fruits, and double scoops of ice cream.',
+    image_url: '/images/restaurant-interior.jpg',
+    is_available: true,
+  },
+  {
+    id: 22,
+    name: 'Sulaimani',
+    food_type: 'Beverage',
+    price: 25,
+    description: 'Refreshing traditional Calicut black tea infused with cardamom, fresh mint, and lemon.',
+    image_url: '/images/restaurant-interior.jpg',
+    is_available: true,
+  },
+]
+
+// Fallback guest selfies if backend is not actively running
+const DEFAULT_SELFIES = [
+  {
+    id: 1,
+    customer_name: 'Shabeer & Family',
+    caption: 'Unforgettable lunch at Paramount Calicut! That Beef Biryani was next level.',
+    image_url: '/images/restaurant-dining.jpg',
+    likes_count: 24,
+    created_at: 'Today, 1:30 PM',
+  },
+  {
+    id: 2,
+    customer_name: 'Arjun & Friends',
+    caption: 'Sunday Al Faham & Malabar Porotta feast at Paramount! Best vibes in Kozhikode.',
+    image_url: '/images/restaurant-interior.jpg',
+    likes_count: 18,
+    created_at: 'Today, 12:15 PM',
+  },
+  {
+    id: 3,
+    customer_name: 'Ananya & Diya',
+    caption: 'Best Falooda & Sulaimani after our Kozhikode beach walk. Love the ambiance!',
+    image_url: '/images/restaurant-dining.jpg',
+    likes_count: 31,
+    created_at: 'Today, 3:45 PM',
+  },
+]
 
 export default function App() {
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
-  const [currentLang, setCurrentLang] = useState('IT')
+  const heroImages = [
+    '/images/restaurant-dining.jpg',
+    '/images/restaurant-interior.jpg',
+  ]
+
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [specials, setSpecials] = useState(DEFAULT_SPECIALS)
+  const [foods, setFoods] = useState(DEFAULT_FOODS)
+  const [selectedType, setSelectedType] = useState('ALL')
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Guest Selfies state
+  const [selfies, setSelfies] = useState(DEFAULT_SELFIES)
+  const [selfieModalOpen, setSelfieModalOpen] = useState(false)
+  const [selfieForm, setSelfieForm] = useState({ customer_name: '', caption: '', image: null })
+  const [selfiePreview, setSelfiePreview] = useState(null)
+  const [selfieUploading, setSelfieUploading] = useState(false)
+  const [selfieSuccess, setSelfieSuccess] = useState(false)
+  const [selfieError, setSelfieError] = useState('')
+  const [likedSelfieIds, setLikedSelfieIds] = useState(new Set())
+
+  // Feedback form state
+  const [feedbacks, setFeedbacks] = useState([
+    {
+      name: 'Dr. Faisal Rahman',
+      rating: 5,
+      comment: 'The Calicut Special Beef Biryani at Paramount is unmatched. The kaima rice aroma and tender beef melts in the mouth.',
+      date: 'Yesterday',
+    },
+    {
+      name: 'Ananya Nair',
+      rating: 5,
+      comment: 'Their beef roast paired with hot flaky porottas is a heavenly combination. Must visit when in Kozhikode!',
+      date: '3 days ago',
+    },
+    {
+      name: 'Rashid K.',
+      rating: 5,
+      comment: 'Best Al Faham in Calicut! Juicy, smoky, and authentic garlic dip. Great hospitality from Paramount team.',
+      date: '1 week ago',
+    },
+  ])
+  const [feedbackInput, setFeedbackInput] = useState({ name: '', comment: '', rating: 5 })
+  const [feedbackSuccess, setFeedbackSuccess] = useState(false)
+
+  // Booking form state
+  const [booking, setBooking] = useState({ name: '', phone: '', guests: '2', date: '', time: '' })
+  const [bookingSuccess, setBookingSuccess] = useState(false)
+
+  // Background carousel timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [heroImages.length])
+
+  const [restaurant, setRestaurant] = useState({
+    name: 'Paramount',
+    location: 'Calicut',
+    phone: '+91 495 272 0272',
+    description: 'Legendary culinary destination in Calicut renowned for its world-famous Calicut Dum Biryani, mouth-watering Beef Roast, flaky Malabar Porottas, fresh Arabian grills, and seafood delicacies.',
+  })
+
+  // Fetch specials, foods, and restaurant details from Django backend
+  useEffect(() => {
+    // 1. Fetch Restaurant Details
+    fetch(`${API_BASE}/restaurant/`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.restaurant) {
+          setRestaurant(data.restaurant)
+        }
+      })
+      .catch(() => {})
+
+    // 2. Fetch Today's Specials
+    fetch(`${API_BASE}/specials/`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.specials && data.specials.length > 0) {
+          setSpecials(data.specials)
+        }
+      })
+      .catch(() => {})
+
+    // 3. Fetch Full Food Menu
+    fetch(`${API_BASE}/foods/`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.foods && data.foods.length > 0) {
+          setFoods(data.foods)
+        }
+      })
+      .catch(() => {})
+
+    // 4. Fetch Guest Selfies
+    fetch(`${API_BASE}/selfies/`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.selfies && data.selfies.length > 0) {
+          setSelfies(data.selfies)
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  // Like a guest selfie
+  const handleLikeSelfie = async (selfieId) => {
+    if (likedSelfieIds.has(selfieId)) return
+    setLikedSelfieIds((prev) => new Set(prev).add(selfieId))
+
+    // Optimistic UI update
+    setSelfies((prev) =>
+      prev.map((s) => (s.id === selfieId ? { ...s, likes_count: (s.likes_count || 0) + 1 } : s))
+    )
+
+    try {
+      await fetch(`${API_BASE}/selfies/${selfieId}/like/`, { method: 'POST' })
+    } catch {
+      // ignore
+    }
+  }
+
+  // Handle selfie file selection and preview
+  const handleSelfieFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setSelfieForm((prev) => ({ ...prev, image: file }))
+      const url = URL.createObjectURL(file)
+      setSelfiePreview(url)
+      setSelfieError('')
+    }
+  }
+
+  // Submit new guest selfie
+  const handleSelfieSubmit = async (e) => {
+    e.preventDefault()
+    if (!selfieForm.image) {
+      setSelfieError('Please select or capture a selfie photo!')
+      return
+    }
+    if (!selfieForm.customer_name.trim()) {
+      setSelfieError('Please enter your name!')
+      return
+    }
+
+    setSelfieUploading(true)
+    setSelfieError('')
+
+    try {
+      const formData = new FormData()
+      formData.append('customer_name', selfieForm.customer_name.trim())
+      formData.append('caption', selfieForm.caption.trim())
+      formData.append('image', selfieForm.image)
+
+      const res = await fetch(`${API_BASE}/selfies/`, {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        if (data && data.selfie) {
+          setSelfies((prev) => [data.selfie, ...prev])
+        }
+        setSelfieSuccess(true)
+        setSelfieForm({ customer_name: '', caption: '', image: null })
+        setSelfiePreview(null)
+        setTimeout(() => {
+          setSelfieSuccess(false)
+          setSelfieModalOpen(false)
+        }, 2200)
+      } else {
+        const errData = await res.json().catch(() => ({}))
+        setSelfieError(errData.error || 'Failed to upload selfie. Please try again.')
+      }
+    } catch {
+      // Local fallback in case backend is offline
+      const localSelfie = {
+        id: Date.now(),
+        customer_name: selfieForm.customer_name,
+        caption: selfieForm.caption || 'Dining at Paramount Calicut!',
+        image_url: selfiePreview || '/images/restaurant-dining.jpg',
+        likes_count: 1,
+        created_at: 'Just now',
+      }
+      setSelfies((prev) => [localSelfie, ...prev])
+      setSelfieSuccess(true)
+      setSelfieForm({ customer_name: '', caption: '', image: null })
+      setSelfiePreview(null)
+      setTimeout(() => {
+        setSelfieSuccess(false)
+        setSelfieModalOpen(false)
+      }, 2200)
+    } finally {
+      setSelfieUploading(false)
+    }
+  }
+
+  // Live product details fetcher from backend API when clicked
+  const handleOpenProduct = (item) => {
+    setSelectedProduct(item)
+    const foodId = item.food_id || item.id
+    fetch(`${API_BASE}/foods/${foodId}/`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.food) {
+          setSelectedProduct((prev) => ({
+            ...prev,
+            ...data.food,
+            savings: data.food.today_special ? data.food.today_special.discount_amount : (prev?.savings || 0),
+            special_price: data.food.today_special ? data.food.today_special.special_price : prev?.special_price,
+            related_items: data.food.related_items || [],
+          }))
+        }
+      })
+      .catch(() => {})
+  }
+
+  // Categories list
+  const foodTypes = ['ALL', ...Array.from(new Set(foods.map((f) => f.food_type))).filter(Boolean)]
+
+  // Filtered foods
+  const filteredFoods = foods.filter((f) => {
+    const matchesType = selectedType === 'ALL' || f.food_type?.toLowerCase() === selectedType.toLowerCase()
+    const matchesSearch =
+      !searchQuery ||
+      f.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesType && matchesSearch
+  })
+
+  // Submit Feedback
+  const handleFeedbackSubmit = (e) => {
+    e.preventDefault()
+    if (!feedbackInput.name.trim() || !feedbackInput.comment.trim()) return
+    setFeedbacks([
+      {
+        name: feedbackInput.name,
+        rating: Number(feedbackInput.rating),
+        comment: feedbackInput.comment,
+        date: 'Just now',
+      },
+      ...feedbacks,
+    ])
+    setFeedbackInput({ name: '', comment: '', rating: 5 })
+    setFeedbackSuccess(true)
+    setTimeout(() => setFeedbackSuccess(false), 4000)
+  }
+
+  // Submit Table Booking
+  const handleBookingSubmit = (e) => {
+    e.preventDefault()
+    if (!booking.name.trim() || !booking.phone.trim()) return
+    setBookingSuccess(true)
+    setBooking({ name: '', phone: '', guests: '2', date: '', time: '' })
+    setTimeout(() => setBookingSuccess(false), 5000)
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-amber-900/60 selection:text-white">
-      {/* Top Fixed Navigation */}
-      <Navbar
-        onOpenBooking={() => setIsBookingOpen(true)}
-        currentLang={currentLang}
-        setCurrentLang={setCurrentLang}
-      />
+    <div className="min-h-screen bg-neutral-950 text-white font-sans selection:bg-amber-500 selection:text-black">
+      {/* Top Navbar */}
+      <Navbar />
 
-      <main>
-        {/* Fullscreen Hero Slider matching reference image & background transition */}
-        <HeroSlider currentLang={currentLang} />
+      {/* 1. HERO SECTION */}
+      <section id="home" className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+        {/* Carousel Background Images with increased brightness and vibrancy */}
+        {heroImages.map((img, idx) => {
+          const isActive = idx === currentSlide
+          return (
+            <div
+              key={idx}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              <div
+                className={`w-full h-full bg-cover bg-center transition-transform duration-[7000ms] ease-out brightness-125 contrast-105 saturate-110 ${
+                  isActive ? 'scale-105' : 'scale-100'
+                }`}
+                style={{ backgroundImage: `url(${img})` }}
+              />
+              {/* Lighter, balanced overlay allowing rich background illumination through */}
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-black/20 to-black/35" />
+              <div className="absolute inset-0 bg-radial-[at_center] from-black/25 via-transparent to-black/45 pointer-events-none" />
+            </div>
+          )
+        })}
 
-        {/* About / Heritage Story */}
-        <AboutSection currentLang={currentLang} />
+        {/* Hero Center Content */}
+        <div className="relative z-20 w-full max-w-5xl px-6 sm:px-10 text-center flex flex-col items-center">
+          <h1 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal text-white uppercase tracking-[0.12em] leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)]">
+            <span className="block mb-2 text-white">Taste The Heritage</span>
+            <span className="block font-['Alex_Brush'] text-5xl sm:text-7xl md:text-8xl text-amber-300 capitalize font-normal tracking-normal drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+              Hotel Paramount
+            </span>
+          </h1>
 
-        {/* Gourmet Tasting & À La Carte Menu */}
-        <MenuSection
-          currentLang={currentLang}
-          onOpenBooking={() => setIsBookingOpen(true)}
-        />
+          {/* Action CTAs */}
+          <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-5">
+            <a
+              href="#specials"
+              className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-black hover:brightness-110 font-sans text-xs sm:text-sm font-bold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 shadow-xl shadow-amber-500/25 hover:scale-105 cursor-pointer rounded-sm"
+            >
+              Our Specials
+            </a>
+            <a
+              href="#menu"
+              className="bg-black/40 hover:bg-white hover:text-black border border-white/90 text-white font-sans text-xs sm:text-sm font-medium tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 backdrop-blur-md hover:scale-105 cursor-pointer rounded-sm shadow-xl"
+            >
+              Explore Menu
+            </a>
+          </div>
+        </div>
 
-        {/* Historic Florentine Wine Window */}
-        <WineWindow currentLang={currentLang} />
+        {/* Carousel Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-3">
+          {heroImages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Slide ${idx + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === currentSlide ? 'w-8 bg-amber-400' : 'w-2 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
 
-        {/* Atmosphere & Dish Gallery */}
-        <GallerySection currentLang={currentLang} />
-      </main>
+      {/* 2. OUR SPECIALS SECTION */}
+      <section id="specials" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+            Handcrafted Daily by our Master Chefs
+          </span>
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+            Today's Specials
+          </h2>
+          <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-5" />
+          <p className="text-white/70 text-sm font-light leading-relaxed">
+            Exclusive dishes prepared fresh today with special promotional pricing. Click on any dish
+            to view complete product details and special highlights.
+          </p>
+        </div>
 
-      {/* Footer & Contacts */}
-      <Footer currentLang={currentLang} />
+        {/* Specials Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {specials.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleOpenProduct(item)}
+              className="group bg-neutral-900/70 border border-white/10 hover:border-amber-400/50 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
+            >
+              {/* Image Container */}
+              <div className="relative h-60 w-full overflow-hidden bg-neutral-800">
+                <img
+                  src={item.image_url || '/images/beef_biryani.jpg'}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-3 left-3 bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 shadow">
+                  Today's Special
+                </div>
+                {item.savings > 0 && (
+                  <div className="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-bold tracking-wider px-2.5 py-1">
+                    SAVE Rs. {item.savings}
+                  </div>
+                )}
+              </div>
 
-      {/* Interactive Reservation Modal */}
-      <ReservationModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        currentLang={currentLang}
-      />
+              {/* Card Body */}
+              <div className="p-6 flex flex-col flex-grow justify-between">
+                <div>
+                  <span className="text-amber-400/90 text-xs font-mono tracking-widest uppercase">
+                    {item.food_type}
+                  </span>
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-medium tracking-wide text-white mt-1 group-hover:text-amber-300 transition-colors">
+                    {item.name}
+                  </h3>
+                  <p className="text-white/70 text-xs font-light line-clamp-2 mt-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-xl font-semibold text-amber-300">
+                      Rs. {item.special_price || item.price}
+                    </span>
+                    {item.regular_price && item.regular_price > (item.special_price || item.price) && (
+                      <span className="text-xs text-white/40 line-through">
+                        Rs. {item.regular_price}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-amber-400 group-hover:translate-x-1 transition-transform flex items-center space-x-1 font-medium tracking-wider">
+                    <span>Details &rarr;</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. OFFERS SECTION */}
+      <section id="offers" className="py-20 bg-neutral-900/50 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+              Special Dining Deals
+            </span>
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+              Exclusive Offers & Combos
+            </h2>
+            <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+                Popular Deal
+              </span>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+                Biryani &amp; Sulaimani Combo
+              </h3>
+              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+                Order any full Beef or Chicken Biryani and get an authentic hot Calicut Sulaimani tea on the house.
+              </p>
+              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+                <span className="text-2xl font-bold text-amber-300">Rs. 220</span>
+                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                  Order Now &rarr;
+                </a>
+              </div>
+            </div>
+
+            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+                Malabar Classic
+              </span>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+                Beef Roast &amp; 3 Porotta Duo
+              </h3>
+              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+                Paramount's signature black-pepper beef roast paired with 3 freshly tossed flaky Malabar porottas.
+              </p>
+              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+                <span className="text-2xl font-bold text-amber-300">Rs. 240</span>
+                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                  Order Now &rarr;
+                </a>
+              </div>
+            </div>
+
+            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+                Family Feast
+              </span>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+                Arabian Grill Platter
+              </h3>
+              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+                Full Charcoal Al Faham, 4 Kuboos, Garlic Mayo dip, fresh salad, plus 2 Tender Coconut Puddings.
+              </p>
+              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+                <span className="text-2xl font-bold text-amber-300">Rs. 580</span>
+                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                  Order Now &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. MENU SECTION */}
+      <section id="menu" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+            Hotel Paramount Signature Offerings
+          </span>
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+            Our Menu
+          </h2>
+          <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-6" />
+
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto">
+            <input
+              type="text"
+              placeholder="Search dishes (e.g. Biryani, Beef, Porotta)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-neutral-900 border border-white/15 px-4 py-2.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-amber-400 tracking-wider"
+            />
+          </div>
+        </div>
+
+        {/* Category Filter Tabs */}
+        <div className="flex items-center justify-center flex-wrap gap-2 mb-12">
+          {foodTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedType(type)}
+              className={`px-4 py-2 text-xs font-sans tracking-widest uppercase transition-all duration-200 cursor-pointer ${
+                selectedType === type
+                  ? 'bg-amber-400 text-black font-semibold shadow'
+                  : 'bg-neutral-900/60 text-white/70 hover:text-white border border-white/10 hover:border-white/30'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
+        {/* Foods Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredFoods.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleOpenProduct(item)}
+              className="bg-neutral-900/50 border border-white/10 hover:border-amber-400/40 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5"
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-amber-400 text-[10px] tracking-widest uppercase font-mono">
+                    {item.food_type}
+                  </span>
+                  <span className="text-lg font-semibold text-amber-300 font-sans">
+                    Rs. {item.price}
+                  </span>
+                </div>
+                <h3 className="font-['Cormorant_Garamond'] text-xl font-medium text-white mt-1.5 group-hover:text-amber-300 transition-colors">
+                  {item.name}
+                </h3>
+                <p className="text-white/60 text-xs mt-2 font-light line-clamp-2 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-400">
+                <span className="text-[11px] text-white/40">Calicut Paramount</span>
+                <span className="group-hover:translate-x-1 transition-transform">Click for details &rarr;</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {filteredFoods.length === 0 && (
+          <div className="text-center py-16 text-white/50 text-sm">
+            No dishes found matching your search. Try another category!
+          </div>
+        )}
+      </section>
+
+      {/* 5. TODAY'S GUEST SELFIES SECTION */}
+      <section id="selfies" className="py-24 bg-black/60 border-t border-white/5 relative">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+            <div>
+              <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+                Live Dining Moments &bull; Calicut Vibes
+              </span>
+              <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+                Today's Guest Selfies
+              </h2>
+              <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-4" />
+              <p className="text-white/70 text-sm font-light max-w-2xl leading-relaxed">
+                Enjoying your meal at Paramount? Click a selfie, upload it directly from your phone or table, and
+                get featured instantly on our live restaurant wall!
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                setSelfieError('')
+                setSelfieSuccess(false)
+                setSelfieModalOpen(true)
+              }}
+              className="inline-flex items-center bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase px-7 py-4 shadow-xl shadow-amber-500/20 cursor-pointer transition-all duration-300 self-start md:self-auto hover:scale-105 rounded-sm"
+            >
+              Upload Your Selfie
+            </button>
+          </div>
+
+          {/* Selfies Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {selfies.map((item) => {
+              const isLiked = likedSelfieIds.has(item.id)
+              return (
+                <div
+                  key={item.id}
+                  className="group bg-neutral-900 border border-white/10 hover:border-amber-400/40 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl hover:-translate-y-1"
+                >
+                  {/* Photo with aspect-ratio */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-800">
+                    <img
+                      src={item.image_url || '/images/restaurant-dining.jpg'}
+                      alt={item.customer_name}
+                      onError={(e) => {
+                        e.target.onerror = null
+                        e.target.src = '/images/restaurant-dining.jpg'
+                      }}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Live Badge */}
+                    <div className="absolute top-3 left-3 bg-black/65 backdrop-blur-md border border-white/20 text-white text-[10px] tracking-widest uppercase px-2.5 py-1 flex items-center space-x-1.5 rounded-full">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>{item.created_at || 'Today'}</span>
+                    </div>
+
+                    {/* Quick Like Overlay on photo */}
+                    <button
+                      type="button"
+                      onClick={() => handleLikeSelfie(item.id)}
+                      className={`absolute bottom-3 right-3 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 transition-all shadow-lg cursor-pointer ${
+                        isLiked
+                          ? 'bg-red-500 text-white'
+                          : 'bg-black/70 hover:bg-black text-white hover:text-red-400 border border-white/20'
+                      }`}
+                      title={isLiked ? 'Liked' : 'Like'}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill={isLiked ? 'currentColor' : 'none'}
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="w-3.5 h-3.5"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span>{item.likes_count || 0}</span>
+                    </button>
+                  </div>
+
+                  {/* Caption & Info */}
+                  <div className="p-5 flex flex-col justify-between flex-1">
+                    <div>
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="w-7 h-7 rounded-full bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold text-xs uppercase">
+                          {item.customer_name ? item.customer_name[0] : 'P'}
+                        </div>
+                        <h4 className="font-['Cormorant_Garamond'] text-lg font-medium text-white tracking-wide">
+                          {item.customer_name}
+                        </h4>
+                      </div>
+
+                      <p className="text-white/70 text-xs font-light leading-relaxed italic">
+                        "{item.caption || 'Dining at Paramount Calicut!'}"
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-white/40">
+                      <span>Hotel Paramount &bull; Calicut</span>
+                      <button
+                        type="button"
+                        onClick={() => handleLikeSelfie(item.id)}
+                        className={`text-xs font-medium cursor-pointer transition-colors ${
+                          isLiked ? 'text-red-400 font-semibold' : 'text-amber-400 hover:text-amber-300'
+                        }`}
+                      >
+                        {isLiked ? 'Liked' : 'Like'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Clean simple prompt banner below selfies */}
+          <div className="mt-12 p-6 sm:p-8 bg-neutral-900/60 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <h4 className="text-white text-sm uppercase tracking-wider font-medium">
+                Dining at Paramount today?
+              </h4>
+              <p className="text-white/60 text-xs font-light mt-1">
+                Share your photo with your meal. Every guest photo gets featured on our live restaurant wall.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setSelfieError('')
+                setSelfieSuccess(false)
+                setSelfieModalOpen(true)
+              }}
+              className="bg-neutral-800 hover:bg-neutral-700 text-amber-300 border border-amber-400/30 text-xs tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer whitespace-nowrap"
+            >
+              Upload Photo
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FEEDBACK SECTION */}
+      <section id="feedback" className="py-24 bg-neutral-900/40 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+              Guest Testimonials
+            </span>
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+              Our Feedback
+            </h2>
+            <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
+            <p className="text-white/70 text-sm font-light leading-relaxed">
+              What Calicut food lovers and travelers say about their experience at Hotel Paramount.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Reviews List */}
+            <div className="lg:col-span-2 space-y-4">
+              {feedbacks.map((item, idx) => (
+                <div key={idx} className="bg-black/50 border border-white/10 p-6 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-white text-sm tracking-wide">{item.name}</h4>
+                      <span className="text-xs text-white/40">{item.date}</span>
+                    </div>
+                    {/* Stars */}
+                    <div className="flex items-center space-x-1 my-2 text-amber-400 text-xs">
+                      {Array.from({ length: item.rating }).map((_, i) => (
+                        <span key={i}>&#9733;</span>
+                      ))}
+                    </div>
+                    <p className="text-white/80 text-xs font-light leading-relaxed italic">
+                      "{item.comment}"
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Submit Feedback Form */}
+            <div className="bg-neutral-900 border border-white/15 p-6 sm:p-8 flex flex-col justify-center">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white uppercase tracking-wider mb-2">
+                Share Your Experience
+              </h3>
+              <p className="text-white/60 text-xs font-light mb-6">
+                Your feedback helps us maintain the standard of Paramount hospitality.
+              </p>
+
+              {feedbackSuccess && (
+                <div className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs p-3 mb-4 text-center">
+                  Thank you! Your feedback has been posted.
+                </div>
+              )}
+
+              <form onSubmit={handleFeedbackSubmit} className="space-y-4">
+                <div>
+                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={feedbackInput.name}
+                    onChange={(e) => setFeedbackInput({ ...feedbackInput, name: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="e.g. Rahul Menon"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                    Rating
+                  </label>
+                  <select
+                    value={feedbackInput.rating}
+                    onChange={(e) => setFeedbackInput({ ...feedbackInput, rating: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  >
+                    <option value={5}>5 Stars - Outstanding</option>
+                    <option value={4}>4 Stars - Very Good</option>
+                    <option value={3}>3 Stars - Average</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                    Your Review
+                  </label>
+                  <textarea
+                    rows={3}
+                    required
+                    value={feedbackInput.comment}
+                    onChange={(e) => setFeedbackInput({ ...feedbackInput, comment: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="Tell us what you loved about our food..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-widest uppercase py-3 transition-colors cursor-pointer"
+                >
+                  Submit Review
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. CONTACT & TABLE BOOKING SECTION */}
+      <section id="contact" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Contact Details */}
+          <div>
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+              Visit Us in Kozhikode
+            </span>
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white leading-tight">
+              Hotel Paramount Calicut
+            </h2>
+            <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-6" />
+
+            <p className="text-white/70 text-sm font-light leading-relaxed mb-8">
+              Experience the authentic flavors of Malabar. Walk into our dining hall or reserve your table
+              in advance for family dinners and private gatherings.
+            </p>
+
+            <div className="space-y-4 text-xs tracking-wider">
+              <div className="flex items-start space-x-3">
+                <span className="text-amber-400 font-bold uppercase w-20">Address:</span>
+                <span className="text-white/80">Paramount Hotel, Calicut, Kozhikode, Kerala 673001</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-amber-400 font-bold uppercase w-20">Phone:</span>
+                <a href="tel:+914952720272" className="text-amber-300 hover:underline">
+                  +91 495 272 0272
+                </a>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-amber-400 font-bold uppercase w-20">Hours:</span>
+                <span className="text-white/80">11:00 AM – 11:30 PM (Daily)</span>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-amber-400 font-bold uppercase w-20">Cuisine:</span>
+                <span className="text-white/80">Malabar Dum Biryani, Beef Roast, Arabian Grills &amp; Seafood</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Table Reservation Form */}
+          <div className="bg-neutral-900 border border-white/15 p-8 sm:p-10 shadow-2xl">
+            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-white uppercase tracking-wider mb-2">
+              Book a Table
+            </h3>
+            <p className="text-white/60 text-xs font-light mb-6">
+              Reserve your spot to avoid rush-hour waiting queues.
+            </p>
+
+            {bookingSuccess && (
+              <div className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs p-3.5 mb-6 text-center">
+                Table reservation received! Our staff will call you shortly to confirm.
+              </div>
+            )}
+
+            <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={booking.name}
+                    onChange={(e) => setBooking({ ...booking, name: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={booking.phone}
+                    onChange={(e) => setBooking({ ...booking, phone: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="+91 9876543210"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                    Guests
+                  </label>
+                  <select
+                    value={booking.guests}
+                    onChange={(e) => setBooking({ ...booking, guests: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  >
+                    <option value="2">2 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="6">6 Guests</option>
+                    <option value="8+">8+ Family</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={booking.date}
+                    onChange={(e) => setBooking({ ...booking, date: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                    Time
+                  </label>
+                  <input
+                    type="time"
+                    required
+                    value={booking.time}
+                    onChange={(e) => setBooking({ ...booking, time: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-[0.2em] uppercase py-3.5 transition-colors cursor-pointer mt-2"
+              >
+                Confirm Table Reservation
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. PRODUCT DETAILS MODAL */}
+      {selectedProduct && (
+        <div
+          onClick={() => setSelectedProduct(null)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-neutral-900 border border-white/20 max-w-2xl w-full overflow-hidden shadow-2xl relative"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white w-8 h-8 flex items-center justify-center rounded-full border border-white/20 cursor-pointer"
+            >
+              &times;
+            </button>
+
+            {/* Modal Image */}
+            <div className="relative h-64 sm:h-72 w-full bg-neutral-800">
+              <img
+                src={selectedProduct.image_url || '/images/beef_biryani.jpg'}
+                alt={selectedProduct.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-4 left-4 bg-amber-400 text-black text-xs font-bold tracking-widest uppercase px-3 py-1">
+                {selectedProduct.food_type}
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 sm:p-8">
+              <div className="flex items-baseline justify-between mb-2">
+                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-medium text-white">
+                  {selectedProduct.name}
+                </h3>
+                <span className="text-2xl font-bold text-amber-300 font-sans">
+                  Rs. {selectedProduct.special_price || selectedProduct.price}
+                </span>
+              </div>
+
+              {selectedProduct.savings > 0 && (
+                <div className="inline-block bg-red-950 border border-red-500/40 text-red-300 text-xs px-2.5 py-0.5 font-medium mb-3">
+                  Today's Special Deal: Save Rs. {selectedProduct.savings}
+                </div>
+              )}
+
+              <p className="text-white/80 text-sm font-light leading-relaxed mt-2 mb-4">
+                {selectedProduct.description}
+              </p>
+
+              {selectedProduct.related_items && selectedProduct.related_items.length > 0 && (
+                <div className="mb-6 p-3.5 bg-black/40 border border-white/10">
+                  <p className="text-[10px] text-amber-400 uppercase tracking-widest mb-2 font-mono">
+                    Similar Dishes in {selectedProduct.food_type}:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProduct.related_items.map((rel) => (
+                      <button
+                        key={rel.id}
+                        type="button"
+                        onClick={() => handleOpenProduct(rel)}
+                        className="text-xs bg-neutral-800 hover:bg-neutral-700 border border-white/10 px-3 py-1.5 text-white/90 hover:text-amber-300 transition-colors cursor-pointer"
+                      >
+                        {rel.name} &bull; <span className="text-amber-300 font-semibold">Rs. {rel.price}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="border-t border-white/10 pt-4 flex flex-wrap items-center justify-between gap-4">
+                <div className="text-xs text-white/50 space-y-1">
+                  <div>Restaurant: <strong className="text-white">Paramount Calicut</strong></div>
+                  <div>Availability: <span className="text-emerald-400">In Stock Today</span></div>
+                </div>
+
+                <a
+                  href="#contact"
+                  onClick={() => setSelectedProduct(null)}
+                  className="bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-widest uppercase px-6 py-2.5 transition-colors"
+                >
+                  Order / Reserve Table
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 8. GUEST SELFIE UPLOAD MODAL */}
+      {selfieModalOpen && (
+        <div
+          onClick={() => setSelfieModalOpen(false)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-neutral-900 border border-white/20 max-w-lg w-full overflow-hidden shadow-2xl relative p-6 sm:p-8"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelfieModalOpen(false)}
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white w-8 h-8 flex items-center justify-center rounded-full border border-white/20 cursor-pointer"
+            >
+              &times;
+            </button>
+
+            <div className="mb-6">
+              <span className="text-amber-400 font-mono text-[10px] tracking-widest uppercase block mb-1">
+                Hotel Paramount Calicut
+              </span>
+              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-medium text-white">
+                Share Your Dining Selfie
+              </h3>
+              <p className="text-white/60 text-xs mt-1 font-light">
+                Take a selfie from your table or select a photo from your gallery to feature on our live wall!
+              </p>
+            </div>
+
+            {selfieSuccess && (
+              <div className="bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs p-4 mb-4 text-center rounded">
+                Your selfie has been posted to Paramount's Live Wall.
+              </div>
+            )}
+
+            {selfieError && (
+              <div className="bg-red-950/80 border border-red-500/50 text-red-200 text-xs p-3.5 mb-4 text-center rounded">
+                {selfieError}
+              </div>
+            )}
+
+            <form onSubmit={handleSelfieSubmit} className="space-y-4">
+              {/* Photo Upload / Camera Area */}
+              <div>
+                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-2">
+                  Your Selfie / Photo *
+                </label>
+
+                {selfiePreview ? (
+                  <div className="relative aspect-[4/3] w-full rounded border border-white/20 overflow-hidden bg-black/50 group">
+                    <img
+                      src={selfiePreview}
+                      alt="Selfie Preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <label
+                      htmlFor="selfie-file-input"
+                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs cursor-pointer transition-opacity"
+                    >
+                      <span>Change Photo</span>
+                    </label>
+                  </div>
+                ) : (
+                  <label
+                    htmlFor="selfie-file-input"
+                    className="border-2 border-dashed border-white/20 hover:border-amber-400/60 rounded p-6 flex flex-col items-center justify-center cursor-pointer bg-black/40 hover:bg-black/60 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-8 h-8 text-amber-300 mb-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
+                      />
+                    </svg>
+                    <span className="text-white text-xs font-medium">Click to Select or Capture Photo</span>
+                    <span className="text-white/40 text-[10px] mt-1">Supports Mobile Camera, JPG, PNG</span>
+                  </label>
+                )}
+
+                <input
+                  id="selfie-file-input"
+                  type="file"
+                  accept="image/*"
+                  capture="user"
+                  onChange={handleSelfieFileChange}
+                  className="hidden"
+                />
+              </div>
+
+              {/* Customer Name */}
+              <div>
+                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-1">
+                  Your Name / Group Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={selfieForm.customer_name}
+                  onChange={(e) => setSelfieForm({ ...selfieForm, customer_name: e.target.value })}
+                  placeholder="e.g. Rahul & Family / Sneha M."
+                  className="w-full bg-black/60 border border-white/20 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 rounded-sm"
+                />
+              </div>
+
+              {/* Caption */}
+              <div>
+                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-1">
+                  Caption / Food Review (Optional)
+                </label>
+                <textarea
+                  rows={2}
+                  value={selfieForm.caption}
+                  onChange={(e) => setSelfieForm({ ...selfieForm, caption: e.target.value })}
+                  placeholder="e.g. Having the best Biryani & Porotta in Kozhikode!"
+                  className="w-full bg-black/60 border border-white/20 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 rounded-sm"
+                />
+              </div>
+
+              <div className="pt-2 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setSelfieModalOpen(false)}
+                  className="px-4 py-2.5 text-xs text-white/60 hover:text-white uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={selfieUploading}
+                  className="bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-black font-semibold text-xs uppercase tracking-widest px-6 py-2.5 transition-colors cursor-pointer"
+                >
+                  {selfieUploading ? 'Uploading Selfie...' : 'Post to Live Wall'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/10 py-10 px-6 sm:px-10 text-center text-xs text-white/50 tracking-wider">
+        <p className="font-['Alex_Brush'] text-3xl text-amber-200 mb-2">Hotel Paramount</p>
+        <p className="text-white/70">Calicut, Kozhikode, Kerala &bull; Phone: +91 495 272 0272</p>
+        <p className="mt-4 text-white/40 text-[11px]">
+          &copy; {new Date().getFullYear()} Hotel Paramount Calicut. All rights reserved.
+        </p>
+      </footer>
     </div>
   )
 }
