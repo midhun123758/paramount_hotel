@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
+import GoldenLoader from './components/GoldenLoader'
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api'
 
@@ -226,6 +227,17 @@ export default function App() {
     }, 6000)
     return () => clearInterval(timer)
   }, [heroImages.length])
+
+  // Prevent browser restoring scroll at #offers or stale anchor on fresh page load
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }, [])
 
   const [restaurant, setRestaurant] = useState({
     name: 'Paramount',
@@ -480,6 +492,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#021009] text-[#faebd2] font-sans selection:bg-[#d4af37] selection:text-black">
+      {/* Luxury Golden "P" Preloader */}
+      <GoldenLoader />
+
       {/* Top Navbar */}
       <Navbar />
 

@@ -17,18 +17,32 @@ export default function Navbar() {
   ]
 
   useEffect(() => {
+    // If browser restored with #offers or stale hash, clean it to avoid landing on #offers
+    if (window.location.hash === '#offers' || window.location.hash === '#home') {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30)
+      const scrollY = window.scrollY
+      setScrolled(scrollY > 30)
 
-      // Active section spy
-      const sectionIds = ['home', 'about', 'specials', 'offers', 'menu', 'selfies', 'feedback', 'contact']
-      const scrollPos = window.scrollY + 140
+      // When near the top, ALWAYS keep Home active
+      if (scrollY < 140) {
+        setActiveSection('home')
+        return
+      }
 
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i])
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sectionIds[i])
-          break
+      const sectionIds = ['contact', 'feedback', 'selfies', 'menu', 'offers', 'specials', 'about', 'home']
+      const checkLine = 220
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= checkLine && rect.bottom >= 100) {
+            setActiveSection(id)
+            return
+          }
         }
       }
     }
@@ -37,6 +51,32 @@ export default function Navbar() {
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Smooth scroll handler preventing awkward jumps or url hash sticking on #offers
+  const handleNavClick = (e, item) => {
+    e.preventDefault()
+    setActiveSection(item.id)
+    setMobileMenuOpen(false)
+
+    if (item.id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.history.replaceState(null, '', window.location.pathname)
+      return
+    }
+
+    const el = document.getElementById(item.id)
+    if (el) {
+      const navOffset = 76
+      const elementPosition = el.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - navOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      })
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }
 
   return (
     <header
@@ -47,7 +87,11 @@ export default function Navbar() {
       } px-6 sm:px-10 lg:px-14 flex items-center justify-between`}
     >
       {/* Left: Original Restaurant Name (Hotel Paramount Calicut) */}
-      <a href="#home" className="flex flex-col items-center select-none group text-decoration-none">
+      <a
+        href="#home"
+        onClick={(e) => handleNavClick(e, { id: 'home' })}
+        className="flex flex-col items-center select-none group text-decoration-none cursor-pointer"
+      >
         <span className="font-['Alex_Brush'] text-3xl sm:text-4xl lg:text-[42px] text-[#d4af37] group-hover:text-[#ecdcb2] transition-colors tracking-wide leading-none drop-shadow-md">
           Paramount
         </span>
@@ -64,7 +108,8 @@ export default function Navbar() {
             <a
               key={item.label}
               href={item.href}
-              className={`relative font-sans text-[11px] xl:text-xs tracking-[0.22em] uppercase font-bold transition-all duration-200 py-1 ${
+              onClick={(e) => handleNavClick(e, item)}
+              className={`relative font-sans text-[11px] xl:text-xs tracking-[0.22em] uppercase font-bold transition-all duration-200 py-1 cursor-pointer ${
                 isActive
                   ? 'text-[#d4af37] drop-shadow-[0_0_8px_rgba(212,175,55,0.45)]'
                   : 'text-[#ecdcb2]/85 hover:text-[#d4af37]'
@@ -79,7 +124,7 @@ export default function Navbar() {
         })}
       </nav>
 
-      {/* Right: Phone Hotline (Luxury contact pill - Book a Table removed) */}
+      {/* Right: Phone Hotline */}
       <div className="hidden lg:flex items-center">
         <a
           href="tel:+914952720272"
@@ -130,8 +175,8 @@ export default function Navbar() {
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`font-sans text-xs tracking-[0.22em] uppercase font-bold py-2.5 px-3 rounded transition-colors flex items-center justify-between border-b border-emerald-950/40 ${
+                onClick={(e) => handleNavClick(e, item)}
+                className={`font-sans text-xs tracking-[0.22em] uppercase font-bold py-2.5 px-3 rounded transition-colors flex items-center justify-between border-b border-emerald-950/40 cursor-pointer ${
                   isActive
                     ? 'text-[#d4af37] bg-[#041c10] border-l-2 border-l-[#d4af37]'
                     : 'text-[#ecdcb2]/85 hover:text-[#d4af37]'
