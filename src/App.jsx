@@ -431,7 +431,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#021009] text-[#f5e6be] font-sans selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen bg-[#021009] text-[#faebd2] font-sans selection:bg-[#d4af37] selection:text-black">
       {/* Top Navbar */}
       <Navbar />
 
@@ -463,8 +463,8 @@ export default function App() {
         {/* Hero Center Content */}
         <div className="relative z-20 w-full max-w-5xl px-6 sm:px-10 text-center flex flex-col items-center">
           <h1 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase tracking-[0.12em] leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)]">
-            <span className="block mb-2 text-[#f3d078] font-bold tracking-[0.14em] drop-shadow-[0_2px_12px_rgba(243,208,120,0.4)]">Taste The Heritage</span>
-            <span className="block font-['Alex_Brush'] text-5xl sm:text-7xl md:text-8xl text-amber-300 capitalize font-normal tracking-normal drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+            <span className="block mb-2 text-[#d4af37] font-bold tracking-[0.14em] drop-shadow-[0_2px_14px_rgba(212,175,55,0.4)]">Taste The Heritage</span>
+            <span className="block font-['Alex_Brush'] text-5xl sm:text-7xl md:text-8xl text-[#ecdcb2] capitalize font-normal tracking-normal drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
               Hotel Paramount
             </span>
           </h1>
@@ -473,13 +473,13 @@ export default function App() {
           <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-5">
             <a
               href="#specials"
-              className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-stone-950 hover:brightness-110 font-sans text-xs sm:text-sm font-bold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 shadow-xl shadow-amber-500/25 hover:scale-105 cursor-pointer rounded-sm"
+              className="gold-gradient-btn font-sans text-xs sm:text-sm font-bold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 shadow-xl shadow-[#d4af37]/25 hover:scale-105 cursor-pointer rounded-sm"
             >
               Our Specials
             </a>
             <a
               href="#menu"
-              className="bg-[#041c10]/70 hover:bg-amber-400 hover:text-stone-950 border border-amber-400/60 text-[#f5e6be] font-sans text-xs sm:text-sm font-bold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 backdrop-blur-md hover:scale-105 cursor-pointer rounded-sm shadow-xl"
+              className="bg-[#041c10]/70 hover:bg-[#d4af37] hover:text-stone-950 border border-[#d4af37]/60 text-[#ecdcb2] font-sans text-xs sm:text-sm font-bold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 backdrop-blur-md hover:scale-105 cursor-pointer rounded-sm shadow-xl"
             >
               Explore Menu
             </a>
@@ -494,7 +494,7 @@ export default function App() {
               onClick={() => setCurrentSlide(idx)}
               aria-label={`Slide ${idx + 1}`}
               className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentSlide ? 'w-8 bg-amber-400' : 'w-2 bg-amber-200/40 hover:bg-amber-200/70'
+                idx === currentSlide ? 'w-8 bg-[#d4af37]' : 'w-2 bg-[#d4af37]/40 hover:bg-[#d4af37]/70'
               }`}
             />
           ))}
@@ -504,14 +504,14 @@ export default function App() {
       {/* 2. OUR SPECIALS SECTION */}
       <section id="specials" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+          <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
             Handcrafted Daily by our Master Chefs
           </span>
-          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078]">
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37]">
             Today's Specials
           </h2>
-          <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-5" />
-          <p className="text-[#f5e6be] text-sm sm:text-base font-medium leading-relaxed">
+          <div className="w-16 h-0.5 bg-[#d4af37] mx-auto mt-4 mb-5" />
+          <p className="text-[#faebd2] text-sm sm:text-base font-medium leading-relaxed">
             Exclusive dishes prepared fresh today with special promotional pricing. Click on any dish
             to view complete product details and special highlights.
           </p>
@@ -523,7 +523,7 @@ export default function App() {
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
-              className="group bg-[#041c10] border border-emerald-900/70 hover:border-amber-400/70 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-2xl hover:shadow-amber-500/15 hover:-translate-y-1"
+              className="group bg-[#041c10] border border-emerald-900/70 hover:border-[#d4af37]/70 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-2xl hover:shadow-[#d4af37]/15 hover:-translate-y-1"
             >
               {/* Image Container */}
               <div className="relative h-60 w-full overflow-hidden bg-[#021009]">
@@ -532,7 +532,7 @@ export default function App() {
                   alt={item.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 shadow">
+                <div className="absolute top-3 left-3 gold-gradient-btn text-stone-950 text-[10px] font-bold tracking-widest uppercase px-3 py-1 shadow">
                   Today's Special
                 </div>
                 {item.savings > 0 && (
@@ -545,29 +545,29 @@ export default function App() {
               {/* Card Body */}
               <div className="p-6 flex flex-col flex-grow justify-between">
                 <div>
-                  <span className="text-amber-400 text-xs font-mono font-bold tracking-widest uppercase">
+                  <span className="text-[#c59b27] text-xs font-mono font-bold tracking-widest uppercase">
                     {item.food_type}
                   </span>
-                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold tracking-wide text-[#fae5a7] mt-1 group-hover:text-amber-300 transition-colors">
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold tracking-wide text-[#faebd2] mt-1 group-hover:text-[#d4af37] transition-colors">
                     {item.name}
                   </h3>
-                  <p className="text-[#f5e6be]/90 text-xs sm:text-[13px] font-medium line-clamp-2 mt-2 leading-relaxed">
+                  <p className="text-[#faebd2]/90 text-xs sm:text-[13px] font-medium line-clamp-2 mt-2 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-emerald-900/40 flex items-center justify-between">
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-xl font-bold text-amber-300">
+                    <span className="text-xl font-bold text-[#d4af37]">
                       Rs. {item.special_price || item.price}
                     </span>
                     {item.regular_price && item.regular_price > (item.special_price || item.price) && (
-                      <span className="text-xs text-amber-200/50 line-through font-medium">
+                      <span className="text-xs text-[#ecdcb2]/50 line-through font-medium">
                         Rs. {item.regular_price}
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-amber-400 group-hover:translate-x-1 transition-transform flex items-center space-x-1 font-bold tracking-wider">
+                  <span className="text-xs text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all flex items-center space-x-1 font-bold tracking-wider">
                     <span>Details &rarr;</span>
                   </span>
                 </div>
@@ -581,65 +581,65 @@ export default function App() {
       <section id="offers" className="py-20 bg-[#03160c] border-y border-emerald-950">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+            <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Special Dining Deals
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078]">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37]">
               Exclusive Offers & Combos
             </h2>
-            <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
+            <div className="w-16 h-0.5 bg-[#d4af37] mx-auto mt-4 mb-4" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-amber-400/60 relative shadow-xl">
-              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-[#d4af37]/60 relative shadow-xl">
+              <span className="gold-gradient-btn text-stone-950 text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Popular Deal
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#fae5a7] font-bold">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#faebd2] font-bold">
                 Biryani &amp; Sulaimani Combo
               </h3>
-              <p className="text-[#f5e6be] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
+              <p className="text-[#faebd2] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
                 Order any full Beef or Chicken Biryani and get an authentic hot Calicut Sulaimani tea on the house.
               </p>
               <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
-                <span className="text-2xl font-bold text-amber-300">Rs. 220</span>
-                <a href="#menu" className="text-xs text-amber-300 font-bold hover:text-amber-200 tracking-wider">
+                <span className="text-2xl font-bold text-[#d4af37]">Rs. 220</span>
+                <a href="#menu" className="text-xs text-[#d4af37] font-bold hover:text-[#ecdcb2] tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
             </div>
 
-            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-amber-400/60 relative shadow-xl">
-              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-[#d4af37]/60 relative shadow-xl">
+              <span className="gold-gradient-btn text-stone-950 text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Malabar Classic
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#fae5a7] font-bold">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#faebd2] font-bold">
                 Beef Roast &amp; 3 Porotta Duo
               </h3>
-              <p className="text-[#f5e6be] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
+              <p className="text-[#faebd2] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
                 Paramount's signature black-pepper beef roast paired with 3 freshly tossed flaky Malabar porottas.
               </p>
               <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
-                <span className="text-2xl font-bold text-amber-300">Rs. 240</span>
-                <a href="#menu" className="text-xs text-amber-300 font-bold hover:text-amber-200 tracking-wider">
+                <span className="text-2xl font-bold text-[#d4af37]">Rs. 240</span>
+                <a href="#menu" className="text-xs text-[#d4af37] font-bold hover:text-[#ecdcb2] tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
             </div>
 
-            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-amber-400/60 relative shadow-xl">
-              <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
+            <div className="p-8 bg-gradient-to-br from-[#052415] to-[#03160c] border border-emerald-800/60 hover:border-[#d4af37]/60 relative shadow-xl">
+              <span className="gold-gradient-btn text-stone-950 text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Family Feast
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#fae5a7] font-bold">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-[#faebd2] font-bold">
                 Arabian Grill Platter
               </h3>
-              <p className="text-[#f5e6be] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
+              <p className="text-[#faebd2] text-xs sm:text-[13px] font-medium mt-2 leading-relaxed">
                 Full Charcoal Al Faham, 4 Kuboos, Garlic Mayo dip, fresh salad, plus 2 Tender Coconut Puddings.
               </p>
               <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
-                <span className="text-2xl font-bold text-amber-300">Rs. 580</span>
-                <a href="#menu" className="text-xs text-amber-300 font-bold hover:text-amber-200 tracking-wider">
+                <span className="text-2xl font-bold text-[#d4af37]">Rs. 580</span>
+                <a href="#menu" className="text-xs text-[#d4af37] font-bold hover:text-[#ecdcb2] tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
@@ -651,13 +651,13 @@ export default function App() {
       {/* 4. MENU SECTION */}
       <section id="menu" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+          <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
             Hotel Paramount Signature Offerings
           </span>
-          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078]">
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37]">
             Our Menu
           </h2>
-          <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-6" />
+          <div className="w-16 h-0.5 bg-[#d4af37] mx-auto mt-4 mb-6" />
 
           {/* Search Bar */}
           <div className="max-w-md mx-auto">
@@ -666,7 +666,7 @@ export default function App() {
               placeholder="Search dishes (e.g. Biryani, Beef, Porotta)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#041c10] border border-emerald-800/60 px-4 py-2.5 text-xs text-amber-100 placeholder-amber-200/40 focus:outline-none focus:border-amber-400 tracking-wider font-semibold"
+              className="w-full bg-[#041c10] border border-emerald-800/60 px-4 py-2.5 text-xs text-[#faebd2] placeholder-[#ecdcb2]/40 focus:outline-none focus:border-[#d4af37] tracking-wider font-semibold"
             />
           </div>
         </div>
@@ -679,8 +679,8 @@ export default function App() {
               onClick={() => setSelectedType(type)}
               className={`px-4 py-2 text-xs font-sans tracking-widest uppercase transition-all duration-200 cursor-pointer ${
                 selectedType === type
-                  ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-stone-950 font-bold shadow'
-                  : 'bg-[#041c10] text-amber-200 hover:text-amber-400 border border-emerald-900/60 hover:border-amber-400/40 font-bold'
+                  ? 'gold-gradient-btn text-stone-950 font-bold shadow'
+                  : 'bg-[#041c10] text-[#ecdcb2] hover:text-[#d4af37] border border-emerald-900/60 hover:border-[#d4af37]/50 font-bold'
               }`}
             >
               {type}
@@ -694,35 +694,35 @@ export default function App() {
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
-              className="bg-[#041c10] border border-emerald-900/60 hover:border-amber-400/60 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5 shadow-lg"
+              className="bg-[#041c10] border border-emerald-900/60 hover:border-[#d4af37]/60 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5 shadow-lg"
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-amber-400 text-xs tracking-widest uppercase font-mono font-bold">
+                  <span className="text-[#c59b27] text-xs tracking-widest uppercase font-mono font-bold">
                     {item.food_type}
                   </span>
-                  <span className="text-lg font-bold text-amber-300 font-sans">
+                  <span className="text-lg font-bold text-[#d4af37] font-sans">
                     Rs. {item.price}
                   </span>
                 </div>
-                <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#fae5a7] mt-1.5 group-hover:text-amber-300 transition-colors">
+                <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] mt-1.5 group-hover:text-[#d4af37] transition-colors">
                   {item.name}
                 </h3>
-                <p className="text-[#f5e6be]/90 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
+                <p className="text-[#faebd2]/90 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs text-amber-400">
-                <span className="text-[11px] text-amber-300/70 font-semibold">Calicut Paramount</span>
-                <span className="group-hover:translate-x-1 transition-transform font-bold">Click for details &rarr;</span>
+              <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
+                <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Calicut Paramount</span>
+                <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">Click for details &rarr;</span>
               </div>
             </div>
           ))}
         </div>
 
         {filteredFoods.length === 0 && (
-          <div className="text-center py-16 text-amber-200/80 text-sm font-medium">
+          <div className="text-center py-16 text-[#ecdcb2]/80 text-sm font-medium">
             No dishes found matching your search. Try another category!
           </div>
         )}
@@ -733,14 +733,14 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
             <div>
-              <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+              <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
                 Live Dining Moments &bull; Calicut Vibes
               </span>
-              <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078]">
+              <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37]">
                 Today's Guest Selfies
               </h2>
-              <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-4" />
-              <p className="text-[#f5e6be] text-sm sm:text-base font-medium max-w-2xl leading-relaxed">
+              <div className="w-16 h-0.5 bg-[#d4af37] mt-4 mb-4" />
+              <p className="text-[#faebd2] text-sm sm:text-base font-medium max-w-2xl leading-relaxed">
                 Enjoying your meal at Paramount? Click a selfie, upload it directly from your phone or table, and
                 get featured instantly on our live restaurant wall!
               </p>
@@ -752,7 +752,7 @@ export default function App() {
                 setSelfieSuccess(false)
                 setSelfieModalOpen(true)
               }}
-              className="inline-flex items-center bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 text-stone-950 font-sans text-xs font-bold tracking-[0.2em] uppercase px-7 py-4 shadow-xl shadow-amber-500/20 cursor-pointer transition-all duration-300 self-start md:self-auto hover:scale-105 rounded-sm"
+              className="inline-flex items-center gold-gradient-btn text-stone-950 font-sans text-xs font-bold tracking-[0.2em] uppercase px-7 py-4 shadow-xl shadow-[#d4af37]/20 cursor-pointer transition-all duration-300 self-start md:self-auto hover:scale-105 rounded-sm"
             >
               Upload Your Selfie
             </button>
@@ -765,7 +765,7 @@ export default function App() {
               return (
                 <div
                   key={item.id}
-                  className="group bg-[#041c10] border border-emerald-900/70 hover:border-amber-400/60 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl hover:-translate-y-1"
+                  className="group bg-[#041c10] border border-emerald-900/70 hover:border-[#d4af37]/60 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl hover:-translate-y-1"
                 >
                   {/* Photo with aspect-ratio */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#021009]">
@@ -779,7 +779,7 @@ export default function App() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     {/* Live Badge */}
-                    <div className="absolute top-3 left-3 bg-[#021009]/90 backdrop-blur-md border border-emerald-700/40 text-amber-200 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 flex items-center space-x-1.5 rounded-full">
+                    <div className="absolute top-3 left-3 bg-[#021009]/90 backdrop-blur-md border border-emerald-700/40 text-[#d4af37] text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 flex items-center space-x-1.5 rounded-full">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       <span>{item.created_at || 'Today'}</span>
                     </div>
@@ -791,7 +791,7 @@ export default function App() {
                       className={`absolute bottom-3 right-3 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 transition-all shadow-lg cursor-pointer ${
                         isLiked
                           ? 'bg-red-500 text-white'
-                          : 'bg-[#021009]/90 hover:bg-[#021009] text-amber-100 hover:text-red-400 border border-emerald-700/50'
+                          : 'bg-[#021009]/90 hover:bg-[#021009] text-[#ecdcb2] hover:text-red-400 border border-emerald-700/50'
                       }`}
                       title={isLiked ? 'Liked' : 'Like'}
                     >
@@ -813,26 +813,26 @@ export default function App() {
                   <div className="p-5 flex flex-col justify-between flex-1">
                     <div>
                       <div className="flex items-center space-x-2 mb-2">
-                        <div className="w-7 h-7 rounded-full bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold text-xs uppercase">
+                        <div className="w-7 h-7 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] font-bold text-xs uppercase">
                           {item.customer_name ? item.customer_name[0] : 'P'}
                         </div>
-                        <h4 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#fae5a7] tracking-wide">
+                        <h4 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] tracking-wide">
                           {item.customer_name}
                         </h4>
                       </div>
 
-                      <p className="text-[#f5e6be] text-xs sm:text-[13px] font-medium leading-relaxed italic">
+                      <p className="text-[#faebd2] text-xs sm:text-[13px] font-medium leading-relaxed italic">
                         "{item.caption || 'Dining at Paramount Calicut!'}"
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-[11px] text-amber-300/70">
+                    <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-[11px] text-[#ecdcb2]/70">
                       <span className="font-semibold">Hotel Paramount &bull; Calicut</span>
                       <button
                         type="button"
                         onClick={() => handleLikeSelfie(item.id)}
                         className={`text-xs font-bold cursor-pointer transition-colors ${
-                          isLiked ? 'text-red-400' : 'text-amber-400 hover:text-amber-300'
+                          isLiked ? 'text-red-400' : 'text-[#d4af37] hover:text-[#ecdcb2]'
                         }`}
                       >
                         {isLiked ? 'Liked' : 'Like'}
@@ -847,10 +847,10 @@ export default function App() {
           {/* Clean simple prompt banner below selfies */}
           <div className="mt-12 p-6 sm:p-8 bg-[#041c10] border border-emerald-800/60 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
             <div>
-              <h4 className="text-[#fae5a7] text-sm uppercase tracking-wider font-bold">
+              <h4 className="text-[#faebd2] text-sm uppercase tracking-wider font-bold">
                 Dining at Paramount today?
               </h4>
-              <p className="text-[#f5e6be] text-xs font-medium mt-1">
+              <p className="text-[#faebd2] text-xs font-medium mt-1">
                 Share your photo with your meal. Every guest photo gets featured on our live restaurant wall.
               </p>
             </div>
@@ -860,7 +860,7 @@ export default function App() {
                 setSelfieSuccess(false)
                 setSelfieModalOpen(true)
               }}
-              className="bg-[#021009] hover:bg-[#052415] text-amber-300 border border-amber-500/50 text-xs font-bold tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer whitespace-nowrap shadow"
+              className="bg-[#021009] hover:bg-[#052415] text-[#d4af37] border border-[#d4af37]/50 text-xs font-bold tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer whitespace-nowrap shadow"
             >
               Upload Photo
             </button>
@@ -872,14 +872,14 @@ export default function App() {
       <section id="feedback" className="py-24 bg-[#03160c] border-t border-emerald-950">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+            <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Guest Testimonials
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078]">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37]">
               Our Feedback
             </h2>
-            <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
-            <p className="text-[#f5e6be] text-sm sm:text-base font-medium leading-relaxed">
+            <div className="w-16 h-0.5 bg-[#d4af37] mx-auto mt-4 mb-4" />
+            <p className="text-[#faebd2] text-sm sm:text-base font-medium leading-relaxed">
               What Calicut food lovers and travelers say about their experience at Hotel Paramount.
             </p>
           </div>
@@ -891,16 +891,16 @@ export default function App() {
                 <div key={idx} className="bg-[#041c10] border border-emerald-900/70 p-6 flex flex-col justify-between shadow-md">
                   <div>
                     <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-[#fae5a7] text-sm tracking-wide">{item.name}</h4>
-                      <span className="text-xs text-amber-300/60 font-medium">{item.date}</span>
+                      <h4 className="font-bold text-[#faebd2] text-sm tracking-wide">{item.name}</h4>
+                      <span className="text-xs text-[#ecdcb2]/60 font-medium">{item.date}</span>
                     </div>
                     {/* Stars */}
-                    <div className="flex items-center space-x-1 my-2 text-amber-400 text-xs">
+                    <div className="flex items-center space-x-1 my-2 text-[#d4af37] text-xs">
                       {Array.from({ length: item.rating }).map((_, i) => (
                         <span key={i}>&#9733;</span>
                       ))}
                     </div>
-                    <p className="text-[#f5e6be] text-xs sm:text-[13px] font-medium leading-relaxed italic">
+                    <p className="text-[#faebd2] text-xs sm:text-[13px] font-medium leading-relaxed italic">
                       "{item.comment}"
                     </p>
                   </div>
@@ -910,10 +910,10 @@ export default function App() {
 
             {/* Submit Feedback Form */}
             <div className="bg-[#041c10] border border-emerald-800/70 p-6 sm:p-8 flex flex-col justify-center shadow-xl">
-              <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold text-[#f3d078] uppercase tracking-wider mb-2">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold text-[#d4af37] uppercase tracking-wider mb-2">
                 Share Your Experience
               </h3>
-              <p className="text-[#f5e6be]/80 text-xs font-medium mb-6">
+              <p className="text-[#faebd2]/80 text-xs font-medium mb-6">
                 Your feedback helps us maintain the standard of Paramount hospitality.
               </p>
 
@@ -925,7 +925,7 @@ export default function App() {
 
               <form onSubmit={handleFeedbackSubmit} className="space-y-4">
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Your Name
                   </label>
                   <input
@@ -933,19 +933,19 @@ export default function App() {
                     required
                     value={feedbackInput.name}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, name: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                     placeholder="e.g. Rahul Menon"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Rating
                   </label>
                   <select
                     value={feedbackInput.rating}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, rating: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                   >
                     <option value={5}>5 Stars - Outstanding</option>
                     <option value={4}>4 Stars - Very Good</option>
@@ -954,7 +954,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Your Review
                   </label>
                   <textarea
@@ -962,14 +962,14 @@ export default function App() {
                     required
                     value={feedbackInput.comment}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, comment: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                     placeholder="Tell us what you loved about our food..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-stone-950 hover:brightness-110 font-sans text-xs font-bold tracking-widest uppercase py-3 transition-colors cursor-pointer shadow-lg"
+                  className="w-full gold-gradient-btn text-stone-950 font-sans text-xs font-bold tracking-widest uppercase py-3 shadow-lg cursor-pointer"
                 >
                   Submit Review
                 </button>
@@ -984,47 +984,47 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: Contact Details */}
           <div>
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
+            <span className="text-[#c59b27] font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Visit Us in Kozhikode
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#f3d078] leading-tight">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-[#d4af37] leading-tight">
               Hotel Paramount Calicut
             </h2>
-            <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-6" />
+            <div className="w-16 h-0.5 bg-[#d4af37] mt-4 mb-6" />
 
-            <p className="text-[#f5e6be] text-sm font-medium leading-relaxed mb-8">
+            <p className="text-[#faebd2] text-sm font-medium leading-relaxed mb-8">
               Experience the authentic flavors of Malabar. Walk into our dining hall or reserve your table
               in advance for family dinners and private gatherings.
             </p>
 
             <div className="space-y-4 text-xs tracking-wider">
               <div className="flex items-start space-x-3">
-                <span className="text-amber-400 font-bold uppercase w-20">Address:</span>
-                <span className="text-[#f5e6be] font-medium">Paramount Hotel, Calicut, Kozhikode, Kerala 673001</span>
+                <span className="text-[#c59b27] font-bold uppercase w-20">Address:</span>
+                <span className="text-[#faebd2] font-medium">Paramount Hotel, Calicut, Kozhikode, Kerala 673001</span>
               </div>
               <div className="flex items-start space-x-3">
-                <span className="text-amber-400 font-bold uppercase w-20">Phone:</span>
-                <a href="tel:+914952720272" className="text-amber-300 hover:text-amber-200 hover:underline font-bold">
+                <span className="text-[#c59b27] font-bold uppercase w-20">Phone:</span>
+                <a href="tel:+914952720272" className="text-[#d4af37] hover:text-[#ecdcb2] hover:underline font-bold">
                   +91 495 272 0272
                 </a>
               </div>
               <div className="flex items-start space-x-3">
-                <span className="text-amber-400 font-bold uppercase w-20">Hours:</span>
-                <span className="text-[#f5e6be] font-medium">11:00 AM – 11:30 PM (Daily)</span>
+                <span className="text-[#c59b27] font-bold uppercase w-20">Hours:</span>
+                <span className="text-[#faebd2] font-medium">11:00 AM – 11:30 PM (Daily)</span>
               </div>
               <div className="flex items-start space-x-3">
-                <span className="text-amber-400 font-bold uppercase w-20">Cuisine:</span>
-                <span className="text-[#f5e6be] font-medium">Malabar Dum Biryani, Beef Roast, Arabian Grills &amp; Seafood</span>
+                <span className="text-[#c59b27] font-bold uppercase w-20">Cuisine:</span>
+                <span className="text-[#faebd2] font-medium">Malabar Dum Biryani, Beef Roast, Arabian Grills &amp; Seafood</span>
               </div>
             </div>
           </div>
 
           {/* Right: Table Reservation Form */}
           <div className="bg-[#041c10] border border-emerald-800/70 p-8 sm:p-10 shadow-2xl">
-            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#f3d078] uppercase tracking-wider mb-2">
+            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#d4af37] uppercase tracking-wider mb-2">
               Book a Table
             </h3>
-            <p className="text-[#f5e6be]/80 text-xs font-medium mb-6">
+            <p className="text-[#faebd2]/80 text-xs font-medium mb-6">
               Reserve your spot to avoid rush-hour waiting queues.
             </p>
 
@@ -1037,7 +1037,7 @@ export default function App() {
             <form onSubmit={handleBookingSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Full Name
                   </label>
                   <input
@@ -1045,12 +1045,12 @@ export default function App() {
                     required
                     value={booking.name}
                     onChange={(e) => setBooking({ ...booking, name: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                     placeholder="Your Name"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Phone Number
                   </label>
                   <input
@@ -1058,7 +1058,7 @@ export default function App() {
                     required
                     value={booking.phone}
                     onChange={(e) => setBooking({ ...booking, phone: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                     placeholder="+91 9876543210"
                   />
                 </div>
@@ -1066,13 +1066,13 @@ export default function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Guests
                   </label>
                   <select
                     value={booking.guests}
                     onChange={(e) => setBooking({ ...booking, guests: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2.5 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2.5 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                   >
                     <option value="2">2 Guests</option>
                     <option value="4">4 Guests</option>
@@ -1081,7 +1081,7 @@ export default function App() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Date
                   </label>
                   <input
@@ -1089,11 +1089,11 @@ export default function App() {
                     required
                     value={booking.date}
                     onChange={(e) => setBooking({ ...booking, date: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                     Time
                   </label>
                   <input
@@ -1101,14 +1101,14 @@ export default function App() {
                     required
                     value={booking.time}
                     onChange={(e) => setBooking({ ...booking, time: e.target.value })}
-                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#021009] border border-emerald-900/70 px-3 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-stone-950 hover:brightness-110 font-sans text-xs font-bold tracking-[0.2em] uppercase py-3.5 transition-colors cursor-pointer mt-2 shadow-xl"
+                className="w-full gold-gradient-btn text-stone-950 font-sans text-xs font-bold tracking-[0.2em] uppercase py-3.5 shadow-xl cursor-pointer mt-2"
               >
                 Confirm Table Reservation
               </button>
@@ -1125,12 +1125,12 @@ export default function App() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#03160c] border border-amber-600/40 max-w-2xl w-full overflow-hidden shadow-2xl relative"
+            className="bg-[#03160c] border border-[#d4af37]/40 max-w-2xl w-full overflow-hidden shadow-2xl relative"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-10 bg-[#021009]/90 hover:bg-[#021009] text-amber-300 hover:text-amber-200 w-8 h-8 flex items-center justify-center rounded-full border border-amber-600/50 cursor-pointer font-bold"
+              className="absolute top-4 right-4 z-10 bg-[#021009]/90 hover:bg-[#021009] text-[#d4af37] hover:text-[#ecdcb2] w-8 h-8 flex items-center justify-center rounded-full border border-[#d4af37]/50 cursor-pointer font-bold"
             >
               &times;
             </button>
@@ -1142,7 +1142,7 @@ export default function App() {
                 alt={selectedProduct.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 bg-amber-400 text-black text-xs font-bold tracking-widest uppercase px-3 py-1">
+              <div className="absolute top-4 left-4 gold-gradient-btn text-stone-950 text-xs font-bold tracking-widest uppercase px-3 py-1">
                 {selectedProduct.food_type}
               </div>
             </div>
@@ -1150,10 +1150,10 @@ export default function App() {
             {/* Modal Content */}
             <div className="p-6 sm:p-8">
               <div className="flex items-baseline justify-between mb-2">
-                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#fae5a7]">
+                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#faebd2]">
                   {selectedProduct.name}
                 </h3>
-                <span className="text-2xl font-bold text-amber-300 font-sans">
+                <span className="text-2xl font-bold text-[#d4af37] font-sans">
                   Rs. {selectedProduct.special_price || selectedProduct.price}
                 </span>
               </div>
@@ -1164,13 +1164,13 @@ export default function App() {
                 </div>
               )}
 
-              <p className="text-[#f5e6be] text-sm font-medium leading-relaxed mt-2 mb-4">
+              <p className="text-[#faebd2] text-sm font-medium leading-relaxed mt-2 mb-4">
                 {selectedProduct.description}
               </p>
 
               {selectedProduct.related_items && selectedProduct.related_items.length > 0 && (
                 <div className="mb-6 p-3.5 bg-[#021009] border border-emerald-900/50">
-                  <p className="text-[10px] text-amber-400 uppercase tracking-widest mb-2 font-mono font-bold">
+                  <p className="text-[10px] text-[#c59b27] uppercase tracking-widest mb-2 font-mono font-bold">
                     Similar Dishes in {selectedProduct.food_type}:
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -1179,9 +1179,9 @@ export default function App() {
                         key={rel.id}
                         type="button"
                         onClick={() => handleOpenProduct(rel)}
-                        className="text-xs bg-[#041c10] hover:bg-[#052415] border border-emerald-900/60 px-3 py-1.5 text-amber-200 hover:text-amber-300 font-bold transition-colors cursor-pointer"
+                        className="text-xs bg-[#041c10] hover:bg-[#052415] border border-emerald-900/60 px-3 py-1.5 text-[#ecdcb2] hover:text-[#d4af37] font-bold transition-colors cursor-pointer"
                       >
-                        {rel.name} &bull; <span className="text-amber-300 font-bold">Rs. {rel.price}</span>
+                        {rel.name} &bull; <span className="text-[#d4af37] font-bold">Rs. {rel.price}</span>
                       </button>
                     ))}
                   </div>
@@ -1189,15 +1189,15 @@ export default function App() {
               )}
 
               <div className="border-t border-emerald-900/40 pt-4 flex flex-wrap items-center justify-between gap-4">
-                <div className="text-xs text-[#f5e6be]/80 space-y-1 font-medium">
-                  <div>Restaurant: <strong className="text-[#fae5a7] font-bold">Paramount Calicut</strong></div>
+                <div className="text-xs text-[#faebd2]/80 space-y-1 font-medium">
+                  <div>Restaurant: <strong className="text-[#faebd2] font-bold">Paramount Calicut</strong></div>
                   <div>Availability: <span className="text-emerald-400 font-semibold">In Stock Today</span></div>
                 </div>
 
                 <a
                   href="#contact"
                   onClick={() => setSelectedProduct(null)}
-                  className="bg-gradient-to-r from-amber-400 to-amber-300 text-stone-950 font-sans text-xs font-bold tracking-widest uppercase px-6 py-2.5 transition-colors shadow-md"
+                  className="gold-gradient-btn text-stone-950 font-sans text-xs font-bold tracking-widest uppercase px-6 py-2.5 transition-colors shadow-md"
                 >
                   Order / Reserve Table
                 </a>
@@ -1215,24 +1215,24 @@ export default function App() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#03160c] border border-amber-600/40 max-w-lg w-full overflow-hidden shadow-2xl relative p-6 sm:p-8"
+            className="bg-[#03160c] border border-[#d4af37]/40 max-w-lg w-full overflow-hidden shadow-2xl relative p-6 sm:p-8"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelfieModalOpen(false)}
-              className="absolute top-4 right-4 z-10 bg-[#021009]/90 hover:bg-[#021009] text-amber-300 hover:text-amber-200 w-8 h-8 flex items-center justify-center rounded-full border border-amber-600/50 cursor-pointer font-bold"
+              className="absolute top-4 right-4 z-10 bg-[#021009]/90 hover:bg-[#021009] text-[#d4af37] hover:text-[#ecdcb2] w-8 h-8 flex items-center justify-center rounded-full border border-[#d4af37]/50 cursor-pointer font-bold"
             >
               &times;
             </button>
 
             <div className="mb-6">
-              <span className="text-amber-400 font-mono text-[10px] tracking-widest uppercase font-bold block mb-1">
+              <span className="text-[#c59b27] font-mono text-[10px] tracking-widest uppercase font-bold block mb-1">
                 Hotel Paramount Calicut
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#f3d078]">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#d4af37]">
                 Share Your Dining Selfie
               </h3>
-              <p className="text-[#f5e6be]/80 text-xs mt-1 font-medium">
+              <p className="text-[#faebd2]/80 text-xs mt-1 font-medium">
                 Take a selfie from your table or select a photo from your gallery to feature on our live wall!
               </p>
             </div>
@@ -1252,7 +1252,7 @@ export default function App() {
             <form onSubmit={handleSelfieSubmit} className="space-y-4">
               {/* Photo Upload / Camera Area */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-2">
+                <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-2">
                   Your Selfie / Photo *
                 </label>
 
@@ -1265,7 +1265,7 @@ export default function App() {
                     />
                     <label
                       htmlFor="selfie-file-input"
-                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-amber-200 text-xs font-bold cursor-pointer transition-opacity"
+                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-[#d4af37] text-xs font-bold cursor-pointer transition-opacity"
                     >
                       <span>Change Photo</span>
                     </label>
@@ -1273,7 +1273,7 @@ export default function App() {
                 ) : (
                   <label
                     htmlFor="selfie-file-input"
-                    className="border-2 border-dashed border-emerald-800/60 hover:border-amber-400/60 rounded p-6 flex flex-col items-center justify-center cursor-pointer bg-[#021009] hover:bg-[#041c10] transition-colors"
+                    className="border-2 border-dashed border-emerald-800/60 hover:border-[#d4af37]/60 rounded p-6 flex flex-col items-center justify-center cursor-pointer bg-[#021009] hover:bg-[#041c10] transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1281,7 +1281,7 @@ export default function App() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-8 h-8 text-amber-300 mb-2"
+                      className="w-8 h-8 text-[#d4af37] mb-2"
                     >
                       <path
                         strokeLinecap="round"
@@ -1294,8 +1294,8 @@ export default function App() {
                         d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
                       />
                     </svg>
-                    <span className="text-amber-200 text-xs font-bold">Click to Select or Capture Photo</span>
-                    <span className="text-amber-300/60 text-[10px] mt-1 font-medium">Supports Mobile Camera, JPG, PNG</span>
+                    <span className="text-[#ecdcb2] text-xs font-bold">Click to Select or Capture Photo</span>
+                    <span className="text-[#c59b27] text-[10px] mt-1 font-medium">Supports Mobile Camera, JPG, PNG</span>
                   </label>
                 )}
 
@@ -1311,7 +1311,7 @@ export default function App() {
 
               {/* Customer Name */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                   Your Name / Group Name *
                 </label>
                 <input
@@ -1320,13 +1320,13 @@ export default function App() {
                   value={selfieForm.customer_name}
                   onChange={(e) => setSelfieForm({ ...selfieForm, customer_name: e.target.value })}
                   placeholder="e.g. Rahul & Family / Sneha M."
-                  className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400 rounded-sm"
+                  className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37] rounded-sm"
                 />
               </div>
 
               {/* Caption */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-amber-300/90 font-bold block mb-1">
+                <label className="text-[11px] uppercase tracking-widest text-[#c59b27] font-bold block mb-1">
                   Caption / Food Review (Optional)
                 </label>
                 <textarea
@@ -1334,7 +1334,7 @@ export default function App() {
                   value={selfieForm.caption}
                   onChange={(e) => setSelfieForm({ ...selfieForm, caption: e.target.value })}
                   placeholder="e.g. Having the best Biryani & Porotta in Kozhikode!"
-                  className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-amber-100 font-medium focus:outline-none focus:border-amber-400 rounded-sm"
+                  className="w-full bg-[#021009] border border-emerald-900/70 px-3.5 py-2 text-xs text-[#faebd2] font-medium focus:outline-none focus:border-[#d4af37] rounded-sm"
                 />
               </div>
 
@@ -1342,14 +1342,14 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setSelfieModalOpen(false)}
-                  className="px-4 py-2.5 text-xs text-amber-300/70 hover:text-amber-200 uppercase tracking-wider font-bold transition-colors cursor-pointer"
+                  className="px-4 py-2.5 text-xs text-[#c59b27] hover:text-[#ecdcb2] uppercase tracking-wider font-bold transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={selfieUploading}
-                  className="bg-gradient-to-r from-amber-400 to-amber-300 hover:brightness-110 disabled:opacity-50 text-stone-950 font-bold text-xs uppercase tracking-widest px-6 py-2.5 transition-colors cursor-pointer shadow-md"
+                  className="gold-gradient-btn text-stone-950 font-bold text-xs uppercase tracking-widest px-6 py-2.5 transition-colors cursor-pointer shadow-md"
                 >
                   {selfieUploading ? 'Uploading Selfie...' : 'Post to Live Wall'}
                 </button>
@@ -1360,10 +1360,10 @@ export default function App() {
       )}
 
       {/* FOOTER */}
-      <footer className="border-t border-emerald-950 bg-[#010a06] py-10 px-6 sm:px-10 text-center text-xs text-[#f5e6be]/70 tracking-wider font-medium">
-        <p className="font-['Alex_Brush'] text-3xl text-amber-200 mb-2">Hotel Paramount</p>
-        <p className="text-[#f5e6be]">Calicut, Kozhikode, Kerala &bull; Phone: +91 495 272 0272</p>
-        <p className="mt-4 text-[#f5e6be]/50 text-[11px]">
+      <footer className="border-t border-emerald-950 bg-[#010a06] py-10 px-6 sm:px-10 text-center text-xs text-[#faebd2]/70 tracking-wider font-medium">
+        <p className="font-['Alex_Brush'] text-3xl text-[#d4af37] mb-2">Hotel Paramount</p>
+        <p className="text-[#faebd2]">Calicut, Kozhikode, Kerala &bull; Phone: +91 495 272 0272</p>
+        <p className="mt-4 text-[#faebd2]/50 text-[11px]">
           &copy; {new Date().getFullYear()} Hotel Paramount Calicut. All rights reserved.
         </p>
       </footer>
