@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 
-const API_BASE = 'http://127.0.0.1:8000/api'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api'
 
 // Fallback specials if backend is not actively running
 const DEFAULT_SPECIALS = [
