@@ -38,3 +38,22 @@ html, body {
   background: linear-gradient(135deg, #c59b27 0%, #e6ca65 50%, #a67c1e 100%);
   filter: brightness(1.08);
 }
+
+/* Custom luxury horizontal scrollbar */
+.luxury-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #c59b27 #021009;
+}
+.luxury-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+.luxury-scrollbar::-webkit-scrollbar-track {
+  background: #021009;
+}
+.luxury-scrollbar::-webkit-scrollbar-thumb {
+  background: #c59b27;
+  border-radius: 9999px;
+}
+.luxury-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}

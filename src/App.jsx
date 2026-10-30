@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import GoldenLoader from './components/GoldenLoader'
 
@@ -181,6 +181,18 @@ export default function App() {
   const [selectedType, setSelectedType] = useState('ALL')
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
+
+  // Refs for two-part side scrolling setup
+  const part1Ref = useRef(null)
+  const part2Ref = useRef(null)
+  const singleRowRef = useRef(null)
+
+  const scrollTrack = (ref, direction) => {
+    if (ref.current) {
+      const scrollAmount = direction === 'left' ? -350 : 350
+      ref.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   // Guest Selfies state
   const [selfies, setSelfies] = useState(DEFAULT_SELFIES)
@@ -462,6 +474,71 @@ export default function App() {
       )
     })
   })
+
+  // Partition for "ALL" into a two-part side-scrolling setup
+  const mainCategories = ['Biryani', 'Mandhi', 'Grill', 'Curry', 'Seafood', 'Starter', 'Main Course', 'Rice']
+  let part1Foods = filteredFoods.filter((f) =>
+    mainCategories.some((cat) => f.food_type?.toLowerCase() === cat.toLowerCase())
+  )
+  let part2Foods = filteredFoods.filter(
+    (f) => !mainCategories.some((cat) => f.food_type?.toLowerCase() === cat.toLowerCase())
+  )
+
+  // Fallback: If either part is empty, evenly split
+  if (part1Foods.length === 0 || part2Foods.length === 0) {
+    const half = Math.ceil(filteredFoods.length / 2)
+    part1Foods = filteredFoods.slice(0, half)
+    part2Foods = filteredFoods.slice(half)
+  }
+
+  // Consistent Luxury Food Card renderer
+  const renderFoodCard = (item) => (
+    <div
+      key={item.id || item.food_id}
+      onClick={() => handleOpenProduct(item)}
+      className="group bg-[#041c10] border border-emerald-900/60 hover:border-[#d4af37]/70 overflow-hidden transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1 shadow-xl w-[285px] sm:w-[325px] flex-none snap-start rounded-sm"
+    >
+      {/* Minimal Clean Food Image */}
+      <div className="relative h-44 w-full overflow-hidden bg-[#021009]">
+        <img
+          src={item.image_url || '/images/beef_biryani.jpg'}
+          alt={item.name}
+          loading="lazy"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95 group-hover:opacity-100"
+        />
+        <div className="absolute top-2.5 right-2.5 bg-[#021009]/85 backdrop-blur-md px-2.5 py-1 border border-[#d4af37]/40 text-xs font-bold text-[#d4af37] shadow">
+          Rs. {item.price}
+        </div>
+      </div>
+
+      <div className="p-5 flex flex-col flex-grow justify-between">
+        <div>
+          <div className="flex items-center justify-between">
+            <span className="text-[#c59b27] text-[11px] tracking-widest uppercase font-mono font-bold">
+              {item.food_type}
+            </span>
+            <span className="text-xs text-emerald-400 font-semibold flex items-center space-x-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>Available</span>
+            </span>
+          </div>
+          <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] mt-1.5 group-hover:text-[#d4af37] transition-colors leading-tight">
+            {item.name}
+          </h3>
+          <p className="text-[#faebd2]/85 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
+          <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Hotel Paramount</span>
+          <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">
+            View Details &rarr;
+          </span>
+        </div>
+      </div>
+    </div>
+  )
 
   // Submit Feedback
   const handleFeedbackSubmit = (e) => {
@@ -810,52 +887,150 @@ export default function App() {
           ))}
         </div>
 
-        {/* Foods Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFoods.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleOpenProduct(item)}
-              className="group bg-[#041c10] border border-emerald-900/60 hover:border-[#d4af37]/60 overflow-hidden transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-0.5 shadow-lg"
-            >
-              {/* Minimal Clean Food Image */}
-              <div className="relative h-44 w-full overflow-hidden bg-[#021009]">
-                <img
-                  src={item.image_url || '/images/beef_biryani.jpg'}
-                  alt={item.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95 group-hover:opacity-100"
-                />
+        {/* Foods Display: Two-Part Side-Scrolling Setup for ALL */}
+        {selectedType === 'ALL' && !searchQuery.trim() ? (
+          <div className="space-y-14">
+            {/* PART 1: Signature Mains & Grills */}
+            <div className="relative">
+              {/* Part 1 Header & Controls */}
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
+                <div>
+                  <div className="flex items-center space-x-2 text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
+                    <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
+                    <span>Part 01 &bull; Signature Culinary Delicacies</span>
+                  </div>
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
+                    Royal Mains, Dum Biryanis &amp; Arabian Grills
+                  </h3>
+                </div>
+
+                <div className="flex items-center space-x-3 self-end sm:self-auto">
+                  <span className="text-xs font-sans tracking-widest text-[#ecdcb2]/70 font-semibold uppercase mr-2">
+                    {part1Foods.length} Dishes
+                  </span>
+                  <button
+                    onClick={() => scrollTrack(part1Ref, 'left')}
+                    aria-label="Scroll left"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => scrollTrack(part1Ref, 'right')}
+                    aria-label="Scroll right"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
               </div>
 
-              <div className="p-5 flex flex-col flex-grow justify-between">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#c59b27] text-xs tracking-widest uppercase font-mono font-bold">
-                      {item.food_type}
-                    </span>
-                    <span className="text-lg font-bold text-[#d4af37] font-sans">
-                      Rs. {item.price}
-                    </span>
-                  </div>
-                  <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] mt-1.5 group-hover:text-[#d4af37] transition-colors">
-                    {item.name}
-                  </h3>
-                  <p className="text-[#faebd2]/90 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
-                  <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Calicut Paramount</span>
-                  <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">
-                    Click for details &rarr;
-                  </span>
-                </div>
+              {/* Part 1 Side-Scrolling Track */}
+              <div
+                ref={part1Ref}
+                className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+              >
+                {part1Foods.map((item) => renderFoodCard(item))}
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* PART 2: Traditional Breads, Desserts & Beverages */}
+            <div className="relative">
+              {/* Part 2 Header & Controls */}
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
+                <div>
+                  <div className="flex items-center space-x-2 text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
+                    <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
+                    <span>Part 02 &bull; Accompaniments &amp; Sweet Treats</span>
+                  </div>
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
+                    Malabar Breads, Desserts &amp; Beverages
+                  </h3>
+                </div>
+
+                <div className="flex items-center space-x-3 self-end sm:self-auto">
+                  <span className="text-xs font-sans tracking-widest text-[#ecdcb2]/70 font-semibold uppercase mr-2">
+                    {part2Foods.length} Dishes
+                  </span>
+                  <button
+                    onClick={() => scrollTrack(part2Ref, 'left')}
+                    aria-label="Scroll left"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => scrollTrack(part2Ref, 'right')}
+                    aria-label="Scroll right"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Part 2 Side-Scrolling Track */}
+              <div
+                ref={part2Ref}
+                className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+              >
+                {part2Foods.map((item) => renderFoodCard(item))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Filtered Category / Search Results Side-Scrolling Track */
+          <div className="relative">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
+              <div>
+                <span className="text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
+                  {selectedType !== 'ALL' ? `${selectedType} Collection` : 'Search Results'}
+                </span>
+                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
+                  {filteredFoods.length} {filteredFoods.length === 1 ? 'Dish' : 'Dishes'} Available
+                </h3>
+              </div>
+
+              {filteredFoods.length > 3 && (
+                <div className="flex items-center space-x-3 self-end sm:self-auto">
+                  <button
+                    onClick={() => scrollTrack(singleRowRef, 'left')}
+                    aria-label="Scroll left"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => scrollTrack(singleRowRef, 'right')}
+                    aria-label="Scroll right"
+                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div
+              ref={singleRowRef}
+              className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+            >
+              {filteredFoods.map((item) => renderFoodCard(item))}
+            </div>
+          </div>
+        )}
 
         {filteredFoods.length === 0 && (
           <div className="text-center py-16 text-[#ecdcb2]/80 text-sm font-medium">
