@@ -54,7 +54,7 @@ const DEFAULT_FOODS = [
     food_type: 'Biryani',
     price: 210,
     description: 'Classic Calicut style chicken biryani cooked on slow dum, served with pickle, raita and chammanthi.',
-    image_url: '/images/beef_biryani.jpg',
+    image_url: '/images/chicken_biryani.jpg',
     is_available: true,
   },
   {
@@ -108,7 +108,7 @@ const DEFAULT_FOODS = [
     food_type: 'Mandhi',
     price: 220,
     description: 'Smoky aromatic basmati rice infused with whole spices and tender pit-cooked chicken.',
-    image_url: '/images/chicken_al_faham.jpg',
+    image_url: '/images/chicken_biryani.jpg',
     is_available: true,
   },
   {
@@ -126,7 +126,7 @@ const DEFAULT_FOODS = [
     food_type: 'Dessert',
     price: 150,
     description: 'Layered falooda with vermicelli, basil seeds, fruits, dry fruits, and double scoops of ice cream.',
-    image_url: '/images/chicken_al_faham.jpg',
+    image_url: '/images/falooda.jpg',
     is_available: true,
   },
   {
@@ -135,7 +135,7 @@ const DEFAULT_FOODS = [
     food_type: 'Beverage',
     price: 25,
     description: 'Refreshing traditional Calicut black tea infused with cardamom, fresh mint, and lemon.',
-    image_url: '/images/beef_biryani.jpg',
+    image_url: '/images/sulaimani.jpg',
     is_available: true,
   },
 ]
