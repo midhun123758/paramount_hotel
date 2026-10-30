@@ -117,7 +117,7 @@ const DEFAULT_FOODS = [
     food_type: 'Seafood',
     price: 380,
     description: 'Pearl spot fish wrapped in fresh banana leaves with spicy shallot masala and pan-fried.',
-    image_url: '/images/restaurant-dining.jpg',
+    image_url: '/images/beef_roast.jpg',
     is_available: true,
   },
   {
@@ -126,7 +126,7 @@ const DEFAULT_FOODS = [
     food_type: 'Dessert',
     price: 150,
     description: 'Layered falooda with vermicelli, basil seeds, fruits, dry fruits, and double scoops of ice cream.',
-    image_url: '/images/restaurant-interior.jpg',
+    image_url: '/images/chicken_al_faham.jpg',
     is_available: true,
   },
   {
@@ -135,7 +135,7 @@ const DEFAULT_FOODS = [
     food_type: 'Beverage',
     price: 25,
     description: 'Refreshing traditional Calicut black tea infused with cardamom, fresh mint, and lemon.',
-    image_url: '/images/restaurant-interior.jpg',
+    image_url: '/images/beef_biryani.jpg',
     is_available: true,
   },
 ]
@@ -393,14 +393,62 @@ export default function App() {
   // Categories list
   const foodTypes = ['ALL', ...Array.from(new Set(foods.map((f) => f.food_type))).filter(Boolean)]
 
-  // Filtered foods
+  // Filtered foods with name, category, description, and amount/price search
   const filteredFoods = foods.filter((f) => {
     const matchesType = selectedType === 'ALL' || f.food_type?.toLowerCase() === selectedType.toLowerCase()
-    const matchesSearch =
-      !searchQuery ||
-      f.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      f.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesType && matchesSearch
+    if (!matchesType) return false
+
+    const rawQuery = searchQuery.trim().toLowerCase()
+    if (!rawQuery) return true
+
+    // 1. Budget/Price range queries: "under 200", "below 250", "< 300", "<= 200"
+    const underMatch = rawQuery.match(/(?:under|below|max|upto|up to|<|<=)\s*(\d+)/i)
+    if (underMatch) {
+      const maxPrice = Number(underMatch[1])
+      const textPart = rawQuery.replace(underMatch[0], '').trim()
+      const priceCondition = Number(f.price) <= maxPrice
+      if (textPart) {
+        return (
+          priceCondition &&
+          (f.name?.toLowerCase().includes(textPart) ||
+            f.food_type?.toLowerCase().includes(textPart) ||
+            f.description?.toLowerCase().includes(textPart))
+        )
+      }
+      return priceCondition
+    }
+
+    // 2. Minimum price queries: "above 200", "over 200", "> 200", ">= 200"
+    const aboveMatch = rawQuery.match(/(?:above|over|min|from|>|>=)\s*(\d+)/i)
+    if (aboveMatch) {
+      const minPrice = Number(aboveMatch[1])
+      const textPart = rawQuery.replace(aboveMatch[0], '').trim()
+      const priceCondition = Number(f.price) >= minPrice
+      if (textPart) {
+        return (
+          priceCondition &&
+          (f.name?.toLowerCase().includes(textPart) ||
+            f.food_type?.toLowerCase().includes(textPart) ||
+            f.description?.toLowerCase().includes(textPart))
+        )
+      }
+      return priceCondition
+    }
+
+    // 3. Multi-term or direct amount search (e.g. "220", "rs 220", "biryani 220")
+    const normalizedQuery = rawQuery.replace(/(?:rs\.?|inr|₹)\s*(\d+)/gi, '$1')
+    const tokens = normalizedQuery.split(/\s+/).filter(Boolean)
+
+    return tokens.every((token) => {
+      if (/^\d+$/.test(token)) {
+        return String(f.price) === token || String(f.price).includes(token)
+      }
+      return (
+        f.name?.toLowerCase().includes(token) ||
+        f.food_type?.toLowerCase().includes(token) ||
+        f.description?.toLowerCase().includes(token)
+      )
+    })
   })
 
   // Submit Feedback
@@ -525,30 +573,29 @@ export default function App() {
               onClick={() => handleOpenProduct(item)}
               className="group bg-[#041c10] border border-emerald-900/70 hover:border-[#d4af37]/70 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-2xl hover:shadow-[#d4af37]/15 hover:-translate-y-1"
             >
-              {/* Image Container */}
-              <div className="relative h-60 w-full overflow-hidden bg-[#021009]">
+              {/* Minimal Clean Food Image - No cluttered badges over the photo */}
+              <div className="relative h-52 w-full overflow-hidden bg-[#021009]">
                 <img
                   src={item.image_url || '/images/beef_biryani.jpg'}
                   alt={item.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 gold-gradient-btn text-stone-950 text-[10px] font-bold tracking-widest uppercase px-3 py-1 shadow">
-                  Today's Special
-                </div>
-                {item.savings > 0 && (
-                  <div className="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-bold tracking-wider px-2.5 py-1">
-                    SAVE Rs. {item.savings}
-                  </div>
-                )}
               </div>
 
               {/* Card Body */}
               <div className="p-6 flex flex-col flex-grow justify-between">
                 <div>
-                  <span className="text-[#c59b27] text-xs font-mono font-bold tracking-widest uppercase">
-                    {item.food_type}
-                  </span>
-                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold tracking-wide text-[#faebd2] mt-1 group-hover:text-[#d4af37] transition-colors">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[#c59b27] text-xs font-mono font-bold tracking-widest uppercase">
+                      Special &bull; {item.food_type}
+                    </span>
+                    {item.savings > 0 && (
+                      <span className="text-[11px] text-[#d4af37] font-bold tracking-wider">
+                        Save Rs. {item.savings}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold tracking-wide text-[#faebd2] group-hover:text-[#d4af37] transition-colors">
                     {item.name}
                   </h3>
                   <p className="text-[#faebd2]/90 text-xs sm:text-[13px] font-medium line-clamp-2 mt-2 leading-relaxed">
@@ -663,7 +710,7 @@ export default function App() {
           <div className="max-w-md mx-auto">
             <input
               type="text"
-              placeholder="Search dishes (e.g. Biryani, Beef, Porotta)..."
+              placeholder="Search dishes by name or amount (e.g. Biryani, 220, under 200)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#041c10] border border-emerald-800/60 px-4 py-2.5 text-xs text-[#faebd2] placeholder-[#ecdcb2]/40 focus:outline-none focus:border-[#d4af37] tracking-wider font-semibold"
@@ -694,28 +741,42 @@ export default function App() {
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
-              className="bg-[#041c10] border border-emerald-900/60 hover:border-[#d4af37]/60 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5 shadow-lg"
+              className="group bg-[#041c10] border border-emerald-900/60 hover:border-[#d4af37]/60 overflow-hidden transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-0.5 shadow-lg"
             >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#c59b27] text-xs tracking-widest uppercase font-mono font-bold">
-                    {item.food_type}
-                  </span>
-                  <span className="text-lg font-bold text-[#d4af37] font-sans">
-                    Rs. {item.price}
-                  </span>
-                </div>
-                <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] mt-1.5 group-hover:text-[#d4af37] transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-[#faebd2]/90 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
-                  {item.description}
-                </p>
+              {/* Minimal Clean Food Image */}
+              <div className="relative h-44 w-full overflow-hidden bg-[#021009]">
+                <img
+                  src={item.image_url || '/images/beef_biryani.jpg'}
+                  alt={item.name}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95 group-hover:opacity-100"
+                />
               </div>
 
-              <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
-                <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Calicut Paramount</span>
-                <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">Click for details &rarr;</span>
+              <div className="p-5 flex flex-col flex-grow justify-between">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#c59b27] text-xs tracking-widest uppercase font-mono font-bold">
+                      {item.food_type}
+                    </span>
+                    <span className="text-lg font-bold text-[#d4af37] font-sans">
+                      Rs. {item.price}
+                    </span>
+                  </div>
+                  <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#faebd2] mt-1.5 group-hover:text-[#d4af37] transition-colors">
+                    {item.name}
+                  </h3>
+                  <p className="text-[#faebd2]/90 text-xs sm:text-[13px] mt-2 font-medium line-clamp-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Calicut Paramount</span>
+                  <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">
+                    Click for details &rarr;
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -1135,20 +1196,20 @@ export default function App() {
               &times;
             </button>
 
-            {/* Modal Image */}
-            <div className="relative h-64 sm:h-72 w-full bg-[#021009]">
+            {/* Minimal Clean Modal Image */}
+            <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#021009]">
               <img
                 src={selectedProduct.image_url || '/images/beef_biryani.jpg'}
                 alt={selectedProduct.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 gold-gradient-btn text-stone-950 text-xs font-bold tracking-widest uppercase px-3 py-1">
-                {selectedProduct.food_type}
-              </div>
             </div>
 
             {/* Modal Content */}
             <div className="p-6 sm:p-8">
+              <span className="text-[#c59b27] text-xs font-mono font-bold tracking-widest uppercase block mb-1">
+                {selectedProduct.food_type}
+              </span>
               <div className="flex items-baseline justify-between mb-2">
                 <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-[#faebd2]">
                   {selectedProduct.name}
