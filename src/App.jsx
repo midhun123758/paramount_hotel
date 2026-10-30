@@ -431,7 +431,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white font-sans selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen bg-[#061a12] text-white font-sans selection:bg-amber-500 selection:text-black">
       {/* Top Navbar */}
       <Navbar />
 
@@ -454,17 +454,17 @@ export default function App() {
                 style={{ backgroundImage: `url(${img})` }}
               />
               {/* Lighter, balanced overlay allowing rich background illumination through */}
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-black/20 to-black/35" />
-              <div className="absolute inset-0 bg-radial-[at_center] from-black/25 via-transparent to-black/45 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#061a12] via-[#061a12]/30 to-[#030e09]/55" />
+              <div className="absolute inset-0 bg-radial-[at_center] from-[#061a12]/20 via-transparent to-[#030e09]/60 pointer-events-none" />
             </div>
           )
         })}
 
         {/* Hero Center Content */}
         <div className="relative z-20 w-full max-w-5xl px-6 sm:px-10 text-center flex flex-col items-center">
-          <h1 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal text-white uppercase tracking-[0.12em] leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)]">
-            <span className="block mb-2 text-white">Taste The Heritage</span>
-            <span className="block font-['Alex_Brush'] text-5xl sm:text-7xl md:text-8xl text-amber-300 capitalize font-normal tracking-normal drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+          <h1 className="font-['Cormorant_Garamond'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white uppercase tracking-[0.12em] leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)]">
+            <span className="block mb-2 text-white font-bold tracking-[0.14em]">Taste The Heritage</span>
+            <span className="block font-['Alex_Brush'] text-5xl sm:text-7xl md:text-8xl text-amber-300 capitalize font-normal tracking-normal drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
               Hotel Paramount
             </span>
           </h1>
@@ -479,7 +479,7 @@ export default function App() {
             </a>
             <a
               href="#menu"
-              className="bg-black/40 hover:bg-white hover:text-black border border-white/90 text-white font-sans text-xs sm:text-sm font-medium tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 backdrop-blur-md hover:scale-105 cursor-pointer rounded-sm shadow-xl"
+              className="bg-[#061a12]/60 hover:bg-white hover:text-black border border-emerald-400/50 text-white font-sans text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase px-8 sm:px-10 py-4 transition-all duration-300 backdrop-blur-md hover:scale-105 cursor-pointer rounded-sm shadow-xl"
             >
               Explore Menu
             </a>
@@ -504,14 +504,14 @@ export default function App() {
       {/* 2. OUR SPECIALS SECTION */}
       <section id="specials" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
             Handcrafted Daily by our Master Chefs
           </span>
-          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white">
             Today's Specials
           </h2>
           <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-5" />
-          <p className="text-white/70 text-sm font-light leading-relaxed">
+          <p className="text-white/85 text-sm sm:text-base font-normal leading-relaxed">
             Exclusive dishes prepared fresh today with special promotional pricing. Click on any dish
             to view complete product details and special highlights.
           </p>
@@ -523,10 +523,10 @@ export default function App() {
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
-              className="group bg-neutral-900/70 border border-white/10 hover:border-amber-400/50 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
+              className="group bg-[#092218] border border-emerald-900/60 hover:border-amber-400/50 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1"
             >
               {/* Image Container */}
-              <div className="relative h-60 w-full overflow-hidden bg-neutral-800">
+              <div className="relative h-60 w-full overflow-hidden bg-[#051710]">
                 <img
                   src={item.image_url || '/images/beef_biryani.jpg'}
                   alt={item.name}
@@ -545,29 +545,29 @@ export default function App() {
               {/* Card Body */}
               <div className="p-6 flex flex-col flex-grow justify-between">
                 <div>
-                  <span className="text-amber-400/90 text-xs font-mono tracking-widest uppercase">
+                  <span className="text-amber-400 text-xs font-mono font-bold tracking-widest uppercase">
                     {item.food_type}
                   </span>
-                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-medium tracking-wide text-white mt-1 group-hover:text-amber-300 transition-colors">
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold tracking-wide text-white mt-1 group-hover:text-amber-300 transition-colors">
                     {item.name}
                   </h3>
-                  <p className="text-white/70 text-xs font-light line-clamp-2 mt-2 leading-relaxed">
+                  <p className="text-white/85 text-xs sm:text-[13px] font-normal line-clamp-2 mt-2 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                <div className="mt-6 pt-4 border-t border-emerald-900/40 flex items-center justify-between">
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-xl font-semibold text-amber-300">
+                    <span className="text-xl font-bold text-amber-300">
                       Rs. {item.special_price || item.price}
                     </span>
                     {item.regular_price && item.regular_price > (item.special_price || item.price) && (
-                      <span className="text-xs text-white/40 line-through">
+                      <span className="text-xs text-white/50 line-through font-medium">
                         Rs. {item.regular_price}
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-amber-400 group-hover:translate-x-1 transition-transform flex items-center space-x-1 font-medium tracking-wider">
+                  <span className="text-xs text-amber-400 group-hover:translate-x-1 transition-transform flex items-center space-x-1 font-bold tracking-wider">
                     <span>Details &rarr;</span>
                   </span>
                 </div>
@@ -578,68 +578,68 @@ export default function App() {
       </section>
 
       {/* 3. OFFERS SECTION */}
-      <section id="offers" className="py-20 bg-neutral-900/50 border-y border-white/5">
+      <section id="offers" className="py-20 bg-[#082016] border-y border-emerald-900/50">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Special Dining Deals
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white">
               Exclusive Offers & Combos
             </h2>
             <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+            <div className="p-8 bg-gradient-to-br from-[#0c2b20] to-[#061912] border border-emerald-700/50 hover:border-amber-400/60 relative shadow-xl">
               <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Popular Deal
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-bold">
                 Biryani &amp; Sulaimani Combo
               </h3>
-              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+              <p className="text-white/85 text-xs sm:text-[13px] font-normal mt-2 leading-relaxed">
                 Order any full Beef or Chicken Biryani and get an authentic hot Calicut Sulaimani tea on the house.
               </p>
-              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+              <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
                 <span className="text-2xl font-bold text-amber-300">Rs. 220</span>
-                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                <a href="#menu" className="text-xs text-white/90 font-semibold hover:text-amber-300 tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
             </div>
 
-            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+            <div className="p-8 bg-gradient-to-br from-[#0c2b20] to-[#061912] border border-emerald-700/50 hover:border-amber-400/60 relative shadow-xl">
               <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Malabar Classic
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-bold">
                 Beef Roast &amp; 3 Porotta Duo
               </h3>
-              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+              <p className="text-white/85 text-xs sm:text-[13px] font-normal mt-2 leading-relaxed">
                 Paramount's signature black-pepper beef roast paired with 3 freshly tossed flaky Malabar porottas.
               </p>
-              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+              <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
                 <span className="text-2xl font-bold text-amber-300">Rs. 240</span>
-                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                <a href="#menu" className="text-xs text-white/90 font-semibold hover:text-amber-300 tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
             </div>
 
-            <div className="p-8 bg-gradient-to-br from-neutral-900 to-black border border-amber-400/30 relative">
+            <div className="p-8 bg-gradient-to-br from-[#0c2b20] to-[#061912] border border-emerald-700/50 hover:border-amber-400/60 relative shadow-xl">
               <span className="bg-amber-400 text-black text-[10px] font-bold tracking-widest uppercase px-3 py-1 inline-block mb-4">
                 Family Feast
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-medium">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white font-bold">
                 Arabian Grill Platter
               </h3>
-              <p className="text-white/70 text-xs mt-2 leading-relaxed">
+              <p className="text-white/85 text-xs sm:text-[13px] font-normal mt-2 leading-relaxed">
                 Full Charcoal Al Faham, 4 Kuboos, Garlic Mayo dip, fresh salad, plus 2 Tender Coconut Puddings.
               </p>
-              <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
+              <div className="mt-6 flex items-baseline justify-between border-t border-emerald-900/40 pt-4">
                 <span className="text-2xl font-bold text-amber-300">Rs. 580</span>
-                <a href="#menu" className="text-xs text-white/80 hover:text-amber-300 tracking-wider">
+                <a href="#menu" className="text-xs text-white/90 font-semibold hover:text-amber-300 tracking-wider">
                   Order Now &rarr;
                 </a>
               </div>
@@ -651,10 +651,10 @@ export default function App() {
       {/* 4. MENU SECTION */}
       <section id="menu" className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+          <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
             Hotel Paramount Signature Offerings
           </span>
-          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+          <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white">
             Our Menu
           </h2>
           <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-6" />
@@ -666,7 +666,7 @@ export default function App() {
               placeholder="Search dishes (e.g. Biryani, Beef, Porotta)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-neutral-900 border border-white/15 px-4 py-2.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-amber-400 tracking-wider"
+              className="w-full bg-[#092218] border border-emerald-800/60 px-4 py-2.5 text-xs text-white placeholder-white/50 focus:outline-none focus:border-amber-400 tracking-wider font-medium"
             />
           </div>
         </div>
@@ -679,8 +679,8 @@ export default function App() {
               onClick={() => setSelectedType(type)}
               className={`px-4 py-2 text-xs font-sans tracking-widest uppercase transition-all duration-200 cursor-pointer ${
                 selectedType === type
-                  ? 'bg-amber-400 text-black font-semibold shadow'
-                  : 'bg-neutral-900/60 text-white/70 hover:text-white border border-white/10 hover:border-white/30'
+                  ? 'bg-amber-400 text-black font-bold shadow'
+                  : 'bg-[#092218] text-white/90 hover:text-white border border-emerald-900/60 hover:border-emerald-600 font-semibold'
               }`}
             >
               {type}
@@ -694,53 +694,53 @@ export default function App() {
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
-              className="bg-neutral-900/50 border border-white/10 hover:border-amber-400/40 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5"
+              className="bg-[#092218] border border-emerald-900/50 hover:border-amber-400/50 p-5 transition-all duration-300 flex flex-col justify-between cursor-pointer group hover:-translate-y-0.5 shadow-lg"
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-amber-400 text-[10px] tracking-widest uppercase font-mono">
+                  <span className="text-amber-400 text-xs tracking-widest uppercase font-mono font-bold">
                     {item.food_type}
                   </span>
-                  <span className="text-lg font-semibold text-amber-300 font-sans">
+                  <span className="text-lg font-bold text-amber-300 font-sans">
                     Rs. {item.price}
                   </span>
                 </div>
-                <h3 className="font-['Cormorant_Garamond'] text-xl font-medium text-white mt-1.5 group-hover:text-amber-300 transition-colors">
+                <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-white mt-1.5 group-hover:text-amber-300 transition-colors">
                   {item.name}
                 </h3>
-                <p className="text-white/60 text-xs mt-2 font-light line-clamp-2 leading-relaxed">
+                <p className="text-white/80 text-xs sm:text-[13px] mt-2 font-normal line-clamp-2 leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-400">
-                <span className="text-[11px] text-white/40">Calicut Paramount</span>
-                <span className="group-hover:translate-x-1 transition-transform">Click for details &rarr;</span>
+              <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs text-amber-400">
+                <span className="text-[11px] text-white/60 font-semibold">Calicut Paramount</span>
+                <span className="group-hover:translate-x-1 transition-transform font-bold">Click for details &rarr;</span>
               </div>
             </div>
           ))}
         </div>
 
         {filteredFoods.length === 0 && (
-          <div className="text-center py-16 text-white/50 text-sm">
+          <div className="text-center py-16 text-white/70 text-sm font-medium">
             No dishes found matching your search. Try another category!
           </div>
         )}
       </section>
 
       {/* 5. TODAY'S GUEST SELFIES SECTION */}
-      <section id="selfies" className="py-24 bg-black/60 border-t border-white/5 relative">
+      <section id="selfies" className="py-24 bg-[#051710] border-t border-emerald-900/40 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
             <div>
-              <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+              <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
                 Live Dining Moments &bull; Calicut Vibes
               </span>
-              <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+              <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white">
                 Today's Guest Selfies
               </h2>
               <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-4" />
-              <p className="text-white/70 text-sm font-light max-w-2xl leading-relaxed">
+              <p className="text-white/85 text-sm sm:text-base font-normal max-w-2xl leading-relaxed">
                 Enjoying your meal at Paramount? Click a selfie, upload it directly from your phone or table, and
                 get featured instantly on our live restaurant wall!
               </p>
@@ -765,10 +765,10 @@ export default function App() {
               return (
                 <div
                   key={item.id}
-                  className="group bg-neutral-900 border border-white/10 hover:border-amber-400/40 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl hover:-translate-y-1"
+                  className="group bg-[#092218] border border-emerald-900/60 hover:border-amber-400/50 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl hover:-translate-y-1"
                 >
                   {/* Photo with aspect-ratio */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-800">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#051710]">
                     <img
                       src={item.image_url || '/images/restaurant-dining.jpg'}
                       alt={item.customer_name}
@@ -779,7 +779,7 @@ export default function App() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     {/* Live Badge */}
-                    <div className="absolute top-3 left-3 bg-black/65 backdrop-blur-md border border-white/20 text-white text-[10px] tracking-widest uppercase px-2.5 py-1 flex items-center space-x-1.5 rounded-full">
+                    <div className="absolute top-3 left-3 bg-[#061a12]/80 backdrop-blur-md border border-emerald-700/40 text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 flex items-center space-x-1.5 rounded-full">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       <span>{item.created_at || 'Today'}</span>
                     </div>
@@ -788,10 +788,10 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handleLikeSelfie(item.id)}
-                      className={`absolute bottom-3 right-3 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 transition-all shadow-lg cursor-pointer ${
+                      className={`absolute bottom-3 right-3 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 transition-all shadow-lg cursor-pointer ${
                         isLiked
                           ? 'bg-red-500 text-white'
-                          : 'bg-black/70 hover:bg-black text-white hover:text-red-400 border border-white/20'
+                          : 'bg-[#061a12]/80 hover:bg-[#061a12] text-white hover:text-red-400 border border-emerald-700/40'
                       }`}
                       title={isLiked ? 'Liked' : 'Like'}
                     >
@@ -800,7 +800,7 @@ export default function App() {
                         viewBox="0 0 24 24"
                         fill={isLiked ? 'currentColor' : 'none'}
                         stroke="currentColor"
-                        strokeWidth="2"
+                        strokeWidth="2.5"
                         className="w-3.5 h-3.5"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -816,23 +816,23 @@ export default function App() {
                         <div className="w-7 h-7 rounded-full bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold text-xs uppercase">
                           {item.customer_name ? item.customer_name[0] : 'P'}
                         </div>
-                        <h4 className="font-['Cormorant_Garamond'] text-lg font-medium text-white tracking-wide">
+                        <h4 className="font-['Cormorant_Garamond'] text-xl font-bold text-white tracking-wide">
                           {item.customer_name}
                         </h4>
                       </div>
 
-                      <p className="text-white/70 text-xs font-light leading-relaxed italic">
+                      <p className="text-white/85 text-xs sm:text-[13px] font-normal leading-relaxed italic">
                         "{item.caption || 'Dining at Paramount Calicut!'}"
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-white/40">
-                      <span>Hotel Paramount &bull; Calicut</span>
+                    <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-[11px] text-white/60">
+                      <span className="font-semibold">Hotel Paramount &bull; Calicut</span>
                       <button
                         type="button"
                         onClick={() => handleLikeSelfie(item.id)}
-                        className={`text-xs font-medium cursor-pointer transition-colors ${
-                          isLiked ? 'text-red-400 font-semibold' : 'text-amber-400 hover:text-amber-300'
+                        className={`text-xs font-bold cursor-pointer transition-colors ${
+                          isLiked ? 'text-red-400' : 'text-amber-400 hover:text-amber-300'
                         }`}
                       >
                         {isLiked ? 'Liked' : 'Like'}
@@ -845,12 +845,12 @@ export default function App() {
           </div>
 
           {/* Clean simple prompt banner below selfies */}
-          <div className="mt-12 p-6 sm:p-8 bg-neutral-900/60 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="mt-12 p-6 sm:p-8 bg-[#092218] border border-emerald-800/60 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
             <div>
-              <h4 className="text-white text-sm uppercase tracking-wider font-medium">
+              <h4 className="text-white text-sm uppercase tracking-wider font-bold">
                 Dining at Paramount today?
               </h4>
-              <p className="text-white/60 text-xs font-light mt-1">
+              <p className="text-white/80 text-xs font-normal mt-1">
                 Share your photo with your meal. Every guest photo gets featured on our live restaurant wall.
               </p>
             </div>
@@ -860,7 +860,7 @@ export default function App() {
                 setSelfieSuccess(false)
                 setSelfieModalOpen(true)
               }}
-              className="bg-neutral-800 hover:bg-neutral-700 text-amber-300 border border-amber-400/30 text-xs tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer whitespace-nowrap"
+              className="bg-[#061a12] hover:bg-[#0c2b20] text-amber-300 border border-emerald-700/60 text-xs font-bold tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer whitespace-nowrap shadow"
             >
               Upload Photo
             </button>
@@ -869,17 +869,17 @@ export default function App() {
       </section>
 
       {/* 6. FEEDBACK SECTION */}
-      <section id="feedback" className="py-24 bg-neutral-900/40 border-t border-white/5">
+      <section id="feedback" className="py-24 bg-[#082016] border-t border-emerald-900/40">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Guest Testimonials
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white">
               Our Feedback
             </h2>
             <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 mb-4" />
-            <p className="text-white/70 text-sm font-light leading-relaxed">
+            <p className="text-white/85 text-sm sm:text-base font-normal leading-relaxed">
               What Calicut food lovers and travelers say about their experience at Hotel Paramount.
             </p>
           </div>
@@ -888,11 +888,11 @@ export default function App() {
             {/* Reviews List */}
             <div className="lg:col-span-2 space-y-4">
               {feedbacks.map((item, idx) => (
-                <div key={idx} className="bg-black/50 border border-white/10 p-6 flex flex-col justify-between">
+                <div key={idx} className="bg-[#061a12] border border-emerald-900/60 p-6 flex flex-col justify-between shadow-md">
                   <div>
                     <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-white text-sm tracking-wide">{item.name}</h4>
-                      <span className="text-xs text-white/40">{item.date}</span>
+                      <h4 className="font-bold text-white text-sm tracking-wide">{item.name}</h4>
+                      <span className="text-xs text-white/50 font-medium">{item.date}</span>
                     </div>
                     {/* Stars */}
                     <div className="flex items-center space-x-1 my-2 text-amber-400 text-xs">
@@ -900,7 +900,7 @@ export default function App() {
                         <span key={i}>&#9733;</span>
                       ))}
                     </div>
-                    <p className="text-white/80 text-xs font-light leading-relaxed italic">
+                    <p className="text-white/90 text-xs sm:text-[13px] font-normal leading-relaxed italic">
                       "{item.comment}"
                     </p>
                   </div>
@@ -909,23 +909,23 @@ export default function App() {
             </div>
 
             {/* Submit Feedback Form */}
-            <div className="bg-neutral-900 border border-white/15 p-6 sm:p-8 flex flex-col justify-center">
-              <h3 className="font-['Cormorant_Garamond'] text-2xl text-white uppercase tracking-wider mb-2">
+            <div className="bg-[#092218] border border-emerald-800/60 p-6 sm:p-8 flex flex-col justify-center shadow-xl">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl font-bold text-white uppercase tracking-wider mb-2">
                 Share Your Experience
               </h3>
-              <p className="text-white/60 text-xs font-light mb-6">
+              <p className="text-white/70 text-xs font-normal mb-6">
                 Your feedback helps us maintain the standard of Paramount hospitality.
               </p>
 
               {feedbackSuccess && (
-                <div className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs p-3 mb-4 text-center">
+                <div className="bg-emerald-950/90 border border-emerald-500/50 text-emerald-200 text-xs font-medium p-3 mb-4 text-center">
                   Thank you! Your feedback has been posted.
                 </div>
               )}
 
               <form onSubmit={handleFeedbackSubmit} className="space-y-4">
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Your Name
                   </label>
                   <input
@@ -933,19 +933,19 @@ export default function App() {
                     required
                     value={feedbackInput.name}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, name: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                     placeholder="e.g. Rahul Menon"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Rating
                   </label>
                   <select
                     value={feedbackInput.rating}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, rating: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                   >
                     <option value={5}>5 Stars - Outstanding</option>
                     <option value={4}>4 Stars - Very Good</option>
@@ -954,7 +954,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[11px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Your Review
                   </label>
                   <textarea
@@ -962,14 +962,14 @@ export default function App() {
                     required
                     value={feedbackInput.comment}
                     onChange={(e) => setFeedbackInput({ ...feedbackInput, comment: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                     placeholder="Tell us what you loved about our food..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-widest uppercase py-3 transition-colors cursor-pointer"
+                  className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-bold tracking-widest uppercase py-3 transition-colors cursor-pointer"
                 >
                   Submit Review
                 </button>
@@ -984,15 +984,15 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left: Contact Details */}
           <div>
-            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase block mb-3">
+            <span className="text-amber-400 font-sans text-xs tracking-[0.35em] uppercase font-bold block mb-3">
               Visit Us in Kozhikode
             </span>
-            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal tracking-[0.14em] uppercase text-white leading-tight">
+            <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-bold tracking-[0.14em] uppercase text-white leading-tight">
               Hotel Paramount Calicut
             </h2>
             <div className="w-16 h-0.5 bg-amber-400 mt-4 mb-6" />
 
-            <p className="text-white/70 text-sm font-light leading-relaxed mb-8">
+            <p className="text-white/85 text-sm font-normal leading-relaxed mb-8">
               Experience the authentic flavors of Malabar. Walk into our dining hall or reserve your table
               in advance for family dinners and private gatherings.
             </p>
@@ -1000,36 +1000,36 @@ export default function App() {
             <div className="space-y-4 text-xs tracking-wider">
               <div className="flex items-start space-x-3">
                 <span className="text-amber-400 font-bold uppercase w-20">Address:</span>
-                <span className="text-white/80">Paramount Hotel, Calicut, Kozhikode, Kerala 673001</span>
+                <span className="text-white/95 font-medium">Paramount Hotel, Calicut, Kozhikode, Kerala 673001</span>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-amber-400 font-bold uppercase w-20">Phone:</span>
-                <a href="tel:+914952720272" className="text-amber-300 hover:underline">
+                <a href="tel:+914952720272" className="text-amber-300 hover:underline font-bold">
                   +91 495 272 0272
                 </a>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-amber-400 font-bold uppercase w-20">Hours:</span>
-                <span className="text-white/80">11:00 AM – 11:30 PM (Daily)</span>
+                <span className="text-white/95 font-medium">11:00 AM – 11:30 PM (Daily)</span>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-amber-400 font-bold uppercase w-20">Cuisine:</span>
-                <span className="text-white/80">Malabar Dum Biryani, Beef Roast, Arabian Grills &amp; Seafood</span>
+                <span className="text-white/95 font-medium">Malabar Dum Biryani, Beef Roast, Arabian Grills &amp; Seafood</span>
               </div>
             </div>
           </div>
 
           {/* Right: Table Reservation Form */}
-          <div className="bg-neutral-900 border border-white/15 p-8 sm:p-10 shadow-2xl">
-            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-white uppercase tracking-wider mb-2">
+          <div className="bg-[#092218] border border-emerald-800/60 p-8 sm:p-10 shadow-2xl">
+            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-white uppercase tracking-wider mb-2">
               Book a Table
             </h3>
-            <p className="text-white/60 text-xs font-light mb-6">
+            <p className="text-white/70 text-xs font-normal mb-6">
               Reserve your spot to avoid rush-hour waiting queues.
             </p>
 
             {bookingSuccess && (
-              <div className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs p-3.5 mb-6 text-center">
+              <div className="bg-emerald-950/90 border border-emerald-500/50 text-emerald-200 text-xs font-medium p-3.5 mb-6 text-center">
                 Table reservation received! Our staff will call you shortly to confirm.
               </div>
             )}
@@ -1037,7 +1037,7 @@ export default function App() {
             <form onSubmit={handleBookingSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Full Name
                   </label>
                   <input
@@ -1045,12 +1045,12 @@ export default function App() {
                     required
                     value={booking.name}
                     onChange={(e) => setBooking({ ...booking, name: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                     placeholder="Your Name"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Phone Number
                   </label>
                   <input
@@ -1058,7 +1058,7 @@ export default function App() {
                     required
                     value={booking.phone}
                     onChange={(e) => setBooking({ ...booking, phone: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                     placeholder="+91 9876543210"
                   />
                 </div>
@@ -1066,13 +1066,13 @@ export default function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Guests
                   </label>
                   <select
                     value={booking.guests}
                     onChange={(e) => setBooking({ ...booking, guests: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3 py-2.5 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                   >
                     <option value="2">2 Guests</option>
                     <option value="4">4 Guests</option>
@@ -1081,7 +1081,7 @@ export default function App() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Date
                   </label>
                   <input
@@ -1089,11 +1089,11 @@ export default function App() {
                     required
                     value={booking.date}
                     onChange={(e) => setBooking({ ...booking, date: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-widest text-white/60 block mb-1">
+                  <label className="text-[10px] uppercase tracking-widest text-white/70 font-semibold block mb-1">
                     Time
                   </label>
                   <input
@@ -1101,14 +1101,14 @@ export default function App() {
                     required
                     value={booking.time}
                     onChange={(e) => setBooking({ ...booking, time: e.target.value })}
-                    className="w-full bg-black/60 border border-white/15 px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-[#051710] border border-emerald-900/70 px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-[0.2em] uppercase py-3.5 transition-colors cursor-pointer mt-2"
+                className="w-full bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-bold tracking-[0.2em] uppercase py-3.5 transition-colors cursor-pointer mt-2"
               >
                 Confirm Table Reservation
               </button>
@@ -1125,18 +1125,18 @@ export default function App() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-neutral-900 border border-white/20 max-w-2xl w-full overflow-hidden shadow-2xl relative"
+            className="bg-[#061a12] border border-emerald-700/60 max-w-2xl w-full overflow-hidden shadow-2xl relative"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white w-8 h-8 flex items-center justify-center rounded-full border border-white/20 cursor-pointer"
+              className="absolute top-4 right-4 z-10 bg-[#04130d]/80 hover:bg-[#04130d] text-white w-8 h-8 flex items-center justify-center rounded-full border border-emerald-700/50 cursor-pointer font-bold"
             >
               &times;
             </button>
 
             {/* Modal Image */}
-            <div className="relative h-64 sm:h-72 w-full bg-neutral-800">
+            <div className="relative h-64 sm:h-72 w-full bg-[#051710]">
               <img
                 src={selectedProduct.image_url || '/images/beef_biryani.jpg'}
                 alt={selectedProduct.name}
@@ -1150,7 +1150,7 @@ export default function App() {
             {/* Modal Content */}
             <div className="p-6 sm:p-8">
               <div className="flex items-baseline justify-between mb-2">
-                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-medium text-white">
+                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-white">
                   {selectedProduct.name}
                 </h3>
                 <span className="text-2xl font-bold text-amber-300 font-sans">
@@ -1159,18 +1159,18 @@ export default function App() {
               </div>
 
               {selectedProduct.savings > 0 && (
-                <div className="inline-block bg-red-950 border border-red-500/40 text-red-300 text-xs px-2.5 py-0.5 font-medium mb-3">
+                <div className="inline-block bg-red-950/90 border border-red-500/50 text-red-300 text-xs px-2.5 py-0.5 font-bold mb-3">
                   Today's Special Deal: Save Rs. {selectedProduct.savings}
                 </div>
               )}
 
-              <p className="text-white/80 text-sm font-light leading-relaxed mt-2 mb-4">
+              <p className="text-white/90 text-sm font-normal leading-relaxed mt-2 mb-4">
                 {selectedProduct.description}
               </p>
 
               {selectedProduct.related_items && selectedProduct.related_items.length > 0 && (
-                <div className="mb-6 p-3.5 bg-black/40 border border-white/10">
-                  <p className="text-[10px] text-amber-400 uppercase tracking-widest mb-2 font-mono">
+                <div className="mb-6 p-3.5 bg-[#051710] border border-emerald-900/50">
+                  <p className="text-[10px] text-amber-400 uppercase tracking-widest mb-2 font-mono font-bold">
                     Similar Dishes in {selectedProduct.food_type}:
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -1179,25 +1179,25 @@ export default function App() {
                         key={rel.id}
                         type="button"
                         onClick={() => handleOpenProduct(rel)}
-                        className="text-xs bg-neutral-800 hover:bg-neutral-700 border border-white/10 px-3 py-1.5 text-white/90 hover:text-amber-300 transition-colors cursor-pointer"
+                        className="text-xs bg-[#092218] hover:bg-[#0c2b20] border border-emerald-900/60 px-3 py-1.5 text-white hover:text-amber-300 font-semibold transition-colors cursor-pointer"
                       >
-                        {rel.name} &bull; <span className="text-amber-300 font-semibold">Rs. {rel.price}</span>
+                        {rel.name} &bull; <span className="text-amber-300 font-bold">Rs. {rel.price}</span>
                       </button>
                     ))}
                   </div>
                 </div>
               )}
 
-              <div className="border-t border-white/10 pt-4 flex flex-wrap items-center justify-between gap-4">
-                <div className="text-xs text-white/50 space-y-1">
-                  <div>Restaurant: <strong className="text-white">Paramount Calicut</strong></div>
-                  <div>Availability: <span className="text-emerald-400">In Stock Today</span></div>
+              <div className="border-t border-emerald-900/40 pt-4 flex flex-wrap items-center justify-between gap-4">
+                <div className="text-xs text-white/70 space-y-1 font-medium">
+                  <div>Restaurant: <strong className="text-white font-bold">Paramount Calicut</strong></div>
+                  <div>Availability: <span className="text-emerald-400 font-semibold">In Stock Today</span></div>
                 </div>
 
                 <a
                   href="#contact"
                   onClick={() => setSelectedProduct(null)}
-                  className="bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-semibold tracking-widest uppercase px-6 py-2.5 transition-colors"
+                  className="bg-amber-400 text-black hover:bg-amber-300 font-sans text-xs font-bold tracking-widest uppercase px-6 py-2.5 transition-colors"
                 >
                   Order / Reserve Table
                 </a>
@@ -1215,36 +1215,36 @@ export default function App() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-neutral-900 border border-white/20 max-w-lg w-full overflow-hidden shadow-2xl relative p-6 sm:p-8"
+            className="bg-[#061a12] border border-emerald-700/60 max-w-lg w-full overflow-hidden shadow-2xl relative p-6 sm:p-8"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelfieModalOpen(false)}
-              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white w-8 h-8 flex items-center justify-center rounded-full border border-white/20 cursor-pointer"
+              className="absolute top-4 right-4 z-10 bg-[#04130d]/80 hover:bg-[#04130d] text-white w-8 h-8 flex items-center justify-center rounded-full border border-emerald-700/50 cursor-pointer font-bold"
             >
               &times;
             </button>
 
             <div className="mb-6">
-              <span className="text-amber-400 font-mono text-[10px] tracking-widest uppercase block mb-1">
+              <span className="text-amber-400 font-mono text-[10px] tracking-widest uppercase font-bold block mb-1">
                 Hotel Paramount Calicut
               </span>
-              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-medium text-white">
+              <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold text-white">
                 Share Your Dining Selfie
               </h3>
-              <p className="text-white/60 text-xs mt-1 font-light">
+              <p className="text-white/75 text-xs mt-1 font-normal">
                 Take a selfie from your table or select a photo from your gallery to feature on our live wall!
               </p>
             </div>
 
             {selfieSuccess && (
-              <div className="bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs p-4 mb-4 text-center rounded">
+              <div className="bg-emerald-950/90 border border-emerald-500/50 text-emerald-200 text-xs font-medium p-4 mb-4 text-center rounded">
                 Your selfie has been posted to Paramount's Live Wall.
               </div>
             )}
 
             {selfieError && (
-              <div className="bg-red-950/80 border border-red-500/50 text-red-200 text-xs p-3.5 mb-4 text-center rounded">
+              <div className="bg-red-950/90 border border-red-500/50 text-red-200 text-xs font-medium p-3.5 mb-4 text-center rounded">
                 {selfieError}
               </div>
             )}
@@ -1252,12 +1252,12 @@ export default function App() {
             <form onSubmit={handleSelfieSubmit} className="space-y-4">
               {/* Photo Upload / Camera Area */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-2">
+                <label className="text-[11px] uppercase tracking-widest text-white/80 font-semibold block mb-2">
                   Your Selfie / Photo *
                 </label>
 
                 {selfiePreview ? (
-                  <div className="relative aspect-[4/3] w-full rounded border border-white/20 overflow-hidden bg-black/50 group">
+                  <div className="relative aspect-[4/3] w-full rounded border border-emerald-700/60 overflow-hidden bg-[#04130d] group">
                     <img
                       src={selfiePreview}
                       alt="Selfie Preview"
@@ -1265,7 +1265,7 @@ export default function App() {
                     />
                     <label
                       htmlFor="selfie-file-input"
-                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs cursor-pointer transition-opacity"
+                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs font-semibold cursor-pointer transition-opacity"
                     >
                       <span>Change Photo</span>
                     </label>
@@ -1273,7 +1273,7 @@ export default function App() {
                 ) : (
                   <label
                     htmlFor="selfie-file-input"
-                    className="border-2 border-dashed border-white/20 hover:border-amber-400/60 rounded p-6 flex flex-col items-center justify-center cursor-pointer bg-black/40 hover:bg-black/60 transition-colors"
+                    className="border-2 border-dashed border-emerald-800/60 hover:border-amber-400/60 rounded p-6 flex flex-col items-center justify-center cursor-pointer bg-[#051710] hover:bg-[#082016] transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1294,8 +1294,8 @@ export default function App() {
                         d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
                       />
                     </svg>
-                    <span className="text-white text-xs font-medium">Click to Select or Capture Photo</span>
-                    <span className="text-white/40 text-[10px] mt-1">Supports Mobile Camera, JPG, PNG</span>
+                    <span className="text-white text-xs font-semibold">Click to Select or Capture Photo</span>
+                    <span className="text-white/50 text-[10px] mt-1 font-medium">Supports Mobile Camera, JPG, PNG</span>
                   </label>
                 )}
 
@@ -1311,7 +1311,7 @@ export default function App() {
 
               {/* Customer Name */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-1">
+                <label className="text-[11px] uppercase tracking-widest text-white/80 font-semibold block mb-1">
                   Your Name / Group Name *
                 </label>
                 <input
@@ -1320,13 +1320,13 @@ export default function App() {
                   value={selfieForm.customer_name}
                   onChange={(e) => setSelfieForm({ ...selfieForm, customer_name: e.target.value })}
                   placeholder="e.g. Rahul & Family / Sneha M."
-                  className="w-full bg-black/60 border border-white/20 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 rounded-sm"
+                  className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2.5 text-xs text-white font-medium focus:outline-none focus:border-amber-400 rounded-sm"
                 />
               </div>
 
               {/* Caption */}
               <div>
-                <label className="text-[11px] uppercase tracking-widest text-white/70 block mb-1">
+                <label className="text-[11px] uppercase tracking-widest text-white/80 font-semibold block mb-1">
                   Caption / Food Review (Optional)
                 </label>
                 <textarea
@@ -1334,7 +1334,7 @@ export default function App() {
                   value={selfieForm.caption}
                   onChange={(e) => setSelfieForm({ ...selfieForm, caption: e.target.value })}
                   placeholder="e.g. Having the best Biryani & Porotta in Kozhikode!"
-                  className="w-full bg-black/60 border border-white/20 px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 rounded-sm"
+                  className="w-full bg-[#051710] border border-emerald-900/70 px-3.5 py-2 text-xs text-white font-medium focus:outline-none focus:border-amber-400 rounded-sm"
                 />
               </div>
 
@@ -1342,14 +1342,14 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setSelfieModalOpen(false)}
-                  className="px-4 py-2.5 text-xs text-white/60 hover:text-white uppercase tracking-wider transition-colors cursor-pointer"
+                  className="px-4 py-2.5 text-xs text-white/70 hover:text-white uppercase tracking-wider font-semibold transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={selfieUploading}
-                  className="bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-black font-semibold text-xs uppercase tracking-widest px-6 py-2.5 transition-colors cursor-pointer"
+                  className="bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-black font-bold text-xs uppercase tracking-widest px-6 py-2.5 transition-colors cursor-pointer"
                 >
                   {selfieUploading ? 'Uploading Selfie...' : 'Post to Live Wall'}
                 </button>
@@ -1360,10 +1360,10 @@ export default function App() {
       )}
 
       {/* FOOTER */}
-      <footer className="border-t border-white/10 py-10 px-6 sm:px-10 text-center text-xs text-white/50 tracking-wider">
+      <footer className="border-t border-emerald-900/50 bg-[#04130d] py-10 px-6 sm:px-10 text-center text-xs text-white/70 tracking-wider font-medium">
         <p className="font-['Alex_Brush'] text-3xl text-amber-200 mb-2">Hotel Paramount</p>
-        <p className="text-white/70">Calicut, Kozhikode, Kerala &bull; Phone: +91 495 272 0272</p>
-        <p className="mt-4 text-white/40 text-[11px]">
+        <p className="text-white/80">Calicut, Kozhikode, Kerala &bull; Phone: +91 495 272 0272</p>
+        <p className="mt-4 text-white/50 text-[11px]">
           &copy; {new Date().getFullYear()} Hotel Paramount Calicut. All rights reserved.
         </p>
       </footer>
