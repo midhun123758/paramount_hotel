@@ -531,9 +531,9 @@ export default function App() {
         </div>
 
         <div className="mt-4 pt-3 border-t border-emerald-900/40 flex items-center justify-between text-xs">
-          <span className="text-[11px] text-[#ecdcb2]/70 font-semibold">Hotel Paramount</span>
-          <span className="text-[#c59b27] group-hover:text-[#d4af37] group-hover:translate-x-1 transition-all font-bold">
-            View Details &rarr;
+          <span className="text-[11px] text-[#ecdcb2]/60 font-semibold">Calicut</span>
+          <span className="text-[#c59b27] group-hover:text-[#d4af37] transition-colors font-bold">
+            Details &rarr;
           </span>
         </div>
       </div>
@@ -889,133 +889,123 @@ export default function App() {
 
         {/* Foods Display: Two-Part Side-Scrolling Setup for ALL */}
         {selectedType === 'ALL' && !searchQuery.trim() ? (
-          <div className="space-y-14">
-            {/* PART 1: Signature Mains & Grills */}
+          <div className="space-y-12">
+            {/* PART 1: Mains & Grills */}
             <div className="relative">
-              {/* Part 1 Header & Controls */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
-                <div>
-                  <div className="flex items-center space-x-2 text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
-                    <span>Part 01 &bull; Signature Culinary Delicacies</span>
-                  </div>
-                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
-                    Royal Mains, Dum Biryanis &amp; Arabian Grills
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-emerald-900/40">
+                <div className="flex items-baseline space-x-2.5">
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold">
+                    Mains &amp; Grills
                   </h3>
+                  <span className="text-xs font-sans text-[#ecdcb2]/50 font-semibold">
+                    ({part1Foods.length})
+                  </span>
                 </div>
 
-                <div className="flex items-center space-x-3 self-end sm:self-auto">
-                  <span className="text-xs font-sans tracking-widest text-[#ecdcb2]/70 font-semibold uppercase mr-2">
-                    {part1Foods.length} Dishes
-                  </span>
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => scrollTrack(part1Ref, 'left')}
                     aria-label="Scroll left"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
                   <button
                     onClick={() => scrollTrack(part1Ref, 'right')}
                     aria-label="Scroll right"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
                 </div>
               </div>
 
-              {/* Part 1 Side-Scrolling Track */}
+              {/* Part 1 Track */}
               <div
                 ref={part1Ref}
-                className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+                className="flex space-x-5 overflow-x-auto scroll-smooth pb-5 pt-1 snap-x snap-mandatory luxury-scrollbar"
               >
                 {part1Foods.map((item) => renderFoodCard(item))}
               </div>
             </div>
 
-            {/* PART 2: Traditional Breads, Desserts & Beverages */}
+            {/* PART 2: Breads & Drinks */}
             <div className="relative">
-              {/* Part 2 Header & Controls */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
-                <div>
-                  <div className="flex items-center space-x-2 text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
-                    <span>Part 02 &bull; Accompaniments &amp; Sweet Treats</span>
-                  </div>
-                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
-                    Malabar Breads, Desserts &amp; Beverages
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-emerald-900/40">
+                <div className="flex items-baseline space-x-2.5">
+                  <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold">
+                    Breads &amp; Drinks
                   </h3>
+                  <span className="text-xs font-sans text-[#ecdcb2]/50 font-semibold">
+                    ({part2Foods.length})
+                  </span>
                 </div>
 
-                <div className="flex items-center space-x-3 self-end sm:self-auto">
-                  <span className="text-xs font-sans tracking-widest text-[#ecdcb2]/70 font-semibold uppercase mr-2">
-                    {part2Foods.length} Dishes
-                  </span>
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => scrollTrack(part2Ref, 'left')}
                     aria-label="Scroll left"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
                   <button
                     onClick={() => scrollTrack(part2Ref, 'right')}
                     aria-label="Scroll right"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
                 </div>
               </div>
 
-              {/* Part 2 Side-Scrolling Track */}
+              {/* Part 2 Track */}
               <div
                 ref={part2Ref}
-                className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+                className="flex space-x-5 overflow-x-auto scroll-smooth pb-5 pt-1 snap-x snap-mandatory luxury-scrollbar"
               >
                 {part2Foods.map((item) => renderFoodCard(item))}
               </div>
             </div>
           </div>
         ) : (
-          /* Filtered Category / Search Results Side-Scrolling Track */
+          /* Filtered Category / Search Results Track */
           <div className="relative">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-emerald-900/50 gap-4">
-              <div>
-                <span className="text-[#c59b27] text-xs font-mono tracking-[0.25em] uppercase font-bold">
-                  {selectedType !== 'ALL' ? `${selectedType} Collection` : 'Search Results'}
-                </span>
-                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold mt-1">
-                  {filteredFoods.length} {filteredFoods.length === 1 ? 'Dish' : 'Dishes'} Available
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-emerald-900/40">
+              <div className="flex items-baseline space-x-2.5">
+                <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl text-[#d4af37] font-bold">
+                  {selectedType !== 'ALL' ? selectedType : 'Results'}
                 </h3>
+                <span className="text-xs font-sans text-[#ecdcb2]/50 font-semibold">
+                  ({filteredFoods.length})
+                </span>
               </div>
 
               {filteredFoods.length > 3 && (
-                <div className="flex items-center space-x-3 self-end sm:self-auto">
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => scrollTrack(singleRowRef, 'left')}
                     aria-label="Scroll left"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
                   <button
                     onClick={() => scrollTrack(singleRowRef, 'right')}
                     aria-label="Scroll right"
-                    className="w-9 h-9 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37] bg-[#041c10] hover:bg-[#d4af37] text-[#d4af37] hover:text-stone-950 transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -1025,7 +1015,7 @@ export default function App() {
 
             <div
               ref={singleRowRef}
-              className="flex space-x-6 overflow-x-auto scroll-smooth pb-6 pt-2 snap-x snap-mandatory luxury-scrollbar"
+              className="flex space-x-5 overflow-x-auto scroll-smooth pb-5 pt-1 snap-x snap-mandatory luxury-scrollbar"
             >
               {filteredFoods.map((item) => renderFoodCard(item))}
             </div>
