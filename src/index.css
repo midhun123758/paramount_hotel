@@ -22,6 +22,8 @@ html, body {
   background-color: #021009;
   color: #faebd2;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 /* Luxury Brushed Gold Gradients & Accents */
